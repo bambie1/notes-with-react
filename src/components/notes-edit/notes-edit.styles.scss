@@ -1,0 +1,25 @@
+.notes-edit {
+  width: 67%;
+  padding-left: 10px;
+  padding-right: 10px;
+
+  .notes-edit-title {
+    width: 70%;
+    font-weight: bold;
+    padding-top: 15px;
+  }
+
+  .notes-edit-header {
+    display: flex;
+    justify-content: space-between;
+    height: 45px;
+  }
+  .notes-edit-controls{
+    padding-top: 15px;
+  }
+
+  .DraftEditor-root {
+    border: 1px solid grey;
+    height: 100%;
+  }
+}
