@@ -1,4 +1,4 @@
-const debounce = (a, b, c) => {
+export default function debounce(a, b, c) {
   var d, e;
   return function () {
     function h() {
@@ -11,10 +11,8 @@ const debounce = (a, b, c) => {
       clearTimeout(d), (d = setTimeout(h, b)), c && !d && (e = a.apply(f, g)), e
     );
   };
-};
+}
 
-// const removeHTMLTags = (str) => {
-//   return str.replace(/<[^>]*>?/gm, "");
-// };
-
-export default debounce;
+export function removeHTMLTags(str) {
+  return str.replace(/<[^>]*>?/gm, "");
+}

@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import "./note-item.styles.scss";
 import DeleteIcon from "@material-ui/icons/Delete";
 import ListItem from "@material-ui/core/ListItem";
+// import removeHTMLTags from "../../helperFunctions";
 
 class NoteItem extends React.Component {
   constructor(props) {

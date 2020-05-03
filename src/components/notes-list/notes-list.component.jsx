@@ -10,7 +10,7 @@ class NotesList extends Component {
     super(props);
 
     this.state = {
-      noteId: 0,
+      noteId: 0, //selected noteID
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -22,6 +22,7 @@ class NotesList extends Component {
 
   handleClick = (index) => {
     this.setState({ noteId: index });
+    // console.log("selected note: ", this.props.notes[index]);
   };
 
   // addNewNote = () => {};

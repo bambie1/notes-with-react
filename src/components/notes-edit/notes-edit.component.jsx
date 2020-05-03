@@ -22,6 +22,7 @@ class NotesEdit extends React.Component {
     await this.setState({ body: value });
     this.update();
   };
+
   handleChange = async (e) => {
     const { name, value } = e.target;
     await this.setState({ [name]: value });
@@ -30,6 +31,12 @@ class NotesEdit extends React.Component {
   update = debounce(() => {
     console.log("Database update");
   }, 1500);
+
+  componentDidMount = () => {
+    this.setState({
+      body: this.props.body,
+    });
+  };
 
   render() {
     // console.log("editing notes: ", this.props.editingNote);
@@ -46,7 +53,7 @@ class NotesEdit extends React.Component {
             // defaultValue={this.state.title}
             value={this.state.title}
             onChange={this.handleChange}
-          />
+          ></Input>
 
           <div className="notes-edit-controls">
             <span>Delete</span>
@@ -55,9 +62,10 @@ class NotesEdit extends React.Component {
         <hr />
         <ReactQuill
           name="body"
-          value={this.props.editingNote?.body}
+          // value={this.props.editingNote?.body}
+          defaultValue={this.state.body}
           onChange={this.handleQuillChange}
-        />
+        ></ReactQuill>
         {/* <p>Your note goes here...</p> */}
       </div>
     );
