@@ -12,11 +12,16 @@ class NoteItem extends React.Component {
   // }
 
   render() {
+    const { title, body, date, onClick } = this.props;
     return (
-      <div className="note-container">
-        <span className="note-title">{this.props.title}</span>
-        <p className="note-brief">{this.props.text}</p>
-        <p className="note-date">{this.props.date}</p>
+      <div className="note-container" onClick={onClick}>
+        <span className="note-title">
+          {title.length > 40 ? title.substring(0, 40) + " ..." : title}
+        </span>
+        <p className="note-brief">
+          {body.length > 40 ? body.substring(0, 40) + " ..."  : body}
+        </p>
+        <p className="note-date">{date}</p>
         <hr />
       </div>
     );

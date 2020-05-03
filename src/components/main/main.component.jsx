@@ -1,22 +1,39 @@
 import React from "react";
 import "./main.styles.scss";
+import * as firebase from "firebase";
 import NotesList from "../notes-list/notes-list.component";
-import NotesEdit from "../notes-edit/notes-edit.component"
 
 class Main extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      text: "",
+      notes: [],
     };
   }
+  componentDidMount = () => {
+    firebase
+      .firestore()
+      .collection("notes")
+      .onSnapshot((serverUpdate) => {
+        const fbNotes = serverUpdate.docs.map((doc) => {
+          const data = doc.data();
+          data["id"] = doc.id;
+          return data;
+        });
+        console.log(fbNotes);
+        this.setState({
+          notes: fbNotes,
+        });
+      });
+  };
 
   render() {
+    // console.log("notes-main: ", this.state.notes);
     return (
       <div className="main">
-        <NotesList />
-        <NotesEdit />
+        <NotesList notes={this.state.notes} />
+        
       </div>
     );
   }

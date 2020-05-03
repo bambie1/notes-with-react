@@ -14,12 +14,11 @@
     justify-content: space-between;
     height: 45px;
   }
-  .notes-edit-controls{
+  .notes-edit-controls {
     padding-top: 15px;
   }
 
-  .DraftEditor-root {
-    border: 1px solid grey;
+  .quill {
     height: 100%;
   }
 }
