@@ -1,21 +1,26 @@
-.note-title {
-  font-size: 16px;
-  margin-bottom: 5px;
-  font-weight: bold;
+.note-body {
+  .note-title {
+    font-size: 16px;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  .note-brief {
+    margin-top: 0px;
+    margin-bottom: 4px;
+  }
+  .note-date {
+    font-size: 10px;
+  }
 }
 
-.note-brief {
-  margin-top: 0px;
-  margin-bottom: 4px;
+.note-container {
+  justify-content: space-between !important;
+  // margin-top: 31px;
+  padding-left: 10px;
+  padding-right: 5px;
+  cursor: pointer;
 }
 
-.note-date {
-  font-size: 10px;
-}
-
-.note-container{
-    // margin-top: 31px;
-    padding-left: 10px;
-    padding-right: 5px;
-    cursor: pointer;
+.clicked-note {
+  background-color: grey;
 }

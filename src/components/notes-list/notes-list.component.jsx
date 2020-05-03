@@ -10,8 +10,10 @@ class NotesList extends Component {
     super(props);
 
     this.state = {
-        noteId: 0
+      noteId: 0,
     };
+
+    this.handleClick = this.handleClick.bind(this);
   }
 
   addNewNote = (e) => {
@@ -22,6 +24,7 @@ class NotesList extends Component {
     this.setState({ noteId: index });
   };
 
+  // addNewNote = () => {};
   render() {
     // console.log("note list state: ", this.state.notes);
     // console.log("note list props: ", this.props.notes);
@@ -29,7 +32,7 @@ class NotesList extends Component {
       <Fragment>
         <div className="notes-list">
           <div className="section-head">
-            <Button onClick={this.addNewNote}>Add note</Button>
+            <Button onClick={this.props.addNewNote}>Add note</Button>
             <Button>Menu</Button>
           </div>
           <hr />
@@ -37,13 +40,13 @@ class NotesList extends Component {
             {this.props.notes.map(({ id, ...otherProps }, index) => (
               <NoteItem
                 key={id}
-                onClick={()=>this.handleClick(index)}
+                onClick={() => this.handleClick(index)}
                 {...otherProps}
               />
             ))}
           </List>
         </div>
-        <NotesEdit editingNote={this.props.notes[this.state.noteId]}/>
+        <NotesEdit editingNote={this.props.notes[this.state.noteId]} />
       </Fragment>
     );
   }
