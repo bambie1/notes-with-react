@@ -22,7 +22,7 @@ class NoteItem extends React.Component {
   };
 
   render() {
-    console.log("index and id: ", this.props.index, this.props.fbID);
+    // console.log("index and id: ", this.props.index, this.props.fbID);
     const { title, body, date } = this.props;
     return (
       <Fragment>

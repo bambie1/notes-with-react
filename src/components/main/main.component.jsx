@@ -32,6 +32,8 @@ class Main extends React.Component {
       });
   };
 
+  editCurrentNote = () => {};
+
   addNewNote = async () => {
     // const today = new Date();
     // var newItem = {

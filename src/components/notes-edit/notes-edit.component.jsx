@@ -34,13 +34,26 @@ class NotesEdit extends React.Component {
 
   componentDidMount = () => {
     this.setState({
-      body: this.props.body,
+      body: this.props.editingNote?.body,
+      title: this.props.editingNote?.title,
+      id: this.props.editingNote?.id,
     });
+  };
+  componentDidUpdate = (prevProps) => {
+    if (this.props.editingNote && prevProps.editingNote) {
+      if (this.props.editingNote.id !== prevProps.editingNote.id) {
+        this.setState({
+          body: this.props.editingNote?.body,
+          title: this.props.editingNote?.title,
+          id: this.props.editingNote?.id,
+        });
+      }
+    }
   };
 
   render() {
-    // console.log("editing notes: ", this.props.editingNote);
-    // console.log("state: ", this.state);
+    console.log("editing notes: ", this.props.editingNote);
+    console.log("editing state: ", this.state);
 
     return (
       <div className="notes-edit">
