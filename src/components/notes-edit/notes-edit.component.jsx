@@ -6,31 +6,17 @@ import "react-quill/dist/quill.snow.css"; // ES6
 import "./notes-edit.styles.scss";
 
 class NotesEdit extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       isEditing: false,
       body: "",
       id: "",
       title: "",
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleQuillChange = this.handleQuillChange.bind(this);
+    this.updateTitle = this.updateTitle.bind(this);
+    this.updateBody = this.updateBody.bind(this);
   }
-
-  handleQuillChange = async (value) => {
-    await this.setState({ body: value });
-    this.update();
-  };
-
-  handleChange = async (e) => {
-    const { name, value } = e.target;
-    await this.setState({ [name]: value });
-  };
-
-  update = debounce(() => {
-    console.log("Database update");
-  }, 1500);
 
   componentDidMount = () => {
     this.setState({
@@ -40,21 +26,21 @@ class NotesEdit extends React.Component {
     });
   };
   componentDidUpdate = (prevProps) => {
-    if (this.props.editingNote && prevProps.editingNote) {
-      if (this.props.editingNote.id !== prevProps.editingNote.id) {
+    if (this.props.editingNote) {
+      if (
+        this.props.editingNote.id !== prevProps.editingNote?.id ||
+        prevProps.editingNote === undefined
+      ) {
         this.setState({
-          body: this.props.editingNote?.body,
-          title: this.props.editingNote?.title,
-          id: this.props.editingNote?.id,
+          body: this.props.editingNote.body,
+          title: this.props.editingNote.title,
+          id: this.props.editingNote.id,
         });
       }
     }
   };
 
   render() {
-    console.log("editing notes: ", this.props.editingNote);
-    console.log("editing state: ", this.state);
-
     return (
       <div className="notes-edit">
         <div className="notes-edit-header">
@@ -63,9 +49,9 @@ class NotesEdit extends React.Component {
             name="title"
             type="text"
             placeholder="Note title"
-            // defaultValue={this.state.title}
-            value={this.state.title}
-            onChange={this.handleChange}
+            defaultValue={this.state.title}
+            // value={this.state.title}
+            onChange={this.updateTitle}
           ></Input>
 
           <div className="notes-edit-controls">
@@ -76,14 +62,26 @@ class NotesEdit extends React.Component {
         <ReactQuill
           name="body"
           theme="snow"
-          // value={this.props.editingNote?.body}
-          defaultValue={this.state.body}
-          onChange={this.handleQuillChange}
+          value={`${this.state.body}`}
+          onChange={this.updateBody}
         ></ReactQuill>
         {/* <p>Your note goes here...</p> */}
       </div>
     );
   }
+  updateBody = async (value) => {
+    await this.setState({ body: value });
+    this.update();
+  };
+
+  updateTitle = async (e) => {
+    const { name, value } = e.target;
+    await this.setState({ [name]: value });
+  };
+
+  update = debounce(() => {
+    console.log("Database update");
+  }, 1500);
 }
 
 export default NotesEdit;
