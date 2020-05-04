@@ -62,6 +62,7 @@ class NotesEdit extends React.Component {
         <hr />
         <ReactQuill
           name="body"
+          theme="snow"
           // value={this.props.editingNote?.body}
           defaultValue={this.state.body}
           onChange={this.handleQuillChange}

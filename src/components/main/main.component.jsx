@@ -9,6 +9,8 @@ class Main extends React.Component {
 
     this.state = {
       notes: [],
+      selectedNote: null,
+      selectedNoteID: null,
     };
 
     this.addNewNote = this.addNewNote.bind(this);
@@ -30,18 +32,24 @@ class Main extends React.Component {
       });
   };
 
-  addNewNote = () => {
+  addNewNote = async () => {
     const today = new Date();
     var newItem = {
-      id: "",
       title: "New note",
       body: "Text goes here",
       date: today.toString(),
     };
+    const newFromDB = await firebase.firestore().collection("notes").add({
+      title: newItem.title,
+      body: newItem.body,
+      date: firebase.firestore.FieldValue.serverTimestamp(),
+    });
+    newItem.id = newFromDB.id;
     this.setState((prevState) => ({
       notes: [...prevState.notes, newItem],
     }));
   };
+
   render() {
     // console.log("notes-main: ", this.state.notes);
     return (
