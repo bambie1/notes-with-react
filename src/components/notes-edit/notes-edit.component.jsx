@@ -40,7 +40,7 @@ class NotesEdit extends React.Component {
 
   render() {
     // console.log("editing notes: ", this.props.editingNote);
-    console.log("state: ", this.state);
+    // console.log("state: ", this.state);
 
     return (
       <div className="notes-edit">

@@ -33,21 +33,21 @@ class Main extends React.Component {
   };
 
   addNewNote = async () => {
-    const today = new Date();
-    var newItem = {
-      title: "New note",
-      body: "Text goes here",
-      date: today.toString(),
-    };
-    const newFromDB = await firebase.firestore().collection("notes").add({
-      title: newItem.title,
-      body: newItem.body,
-      date: firebase.firestore.FieldValue.serverTimestamp(),
-    });
-    newItem.id = newFromDB.id;
-    this.setState((prevState) => ({
-      notes: [...prevState.notes, newItem],
-    }));
+    // const today = new Date();
+    // var newItem = {
+    //   title: "New note",
+    //   body: "Text goes here",
+    //   date: today.toString(),
+    // };
+    // const newFromDB = await firebase.firestore().collection("notes").add({
+    //   title: newItem.title,
+    //   body: newItem.body,
+    //   date: firebase.firestore.FieldValue.serverTimestamp(),
+    // });
+    // newItem.id = newFromDB.id;
+    // this.setState((prevState) => ({
+    //   notes: [...prevState.notes, newItem],
+    // }));
   };
 
   render() {
