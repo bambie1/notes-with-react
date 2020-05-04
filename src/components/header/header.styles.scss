@@ -1,5 +1,15 @@
-.nav{
-    display: flex;
-    list-style: none;
-    justify-content: space-evenly;
+.header {
+  display: flex;
+  margin: 3vh;
+  justify-content: flex-end;
+  // padding: 0px;
+
+  .user-account-pic {
+    padding-left: 3vw;
+    height: 10vh;
+  }
+  .user-account-name {
+    font-size: 1rem;
+    padding-top: 2.3vh;
+  }
 }

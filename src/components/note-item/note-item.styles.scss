@@ -19,8 +19,12 @@
   padding-left: 10px;
   padding-right: 5px;
   cursor: pointer;
+
+  :hover {
+    opacity: 0.7;
+  }
 }
 
 .selected-note {
-  background-color: grey;
+  background-color: #cac6a8;
 }

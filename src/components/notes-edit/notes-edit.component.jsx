@@ -81,6 +81,7 @@ class NotesEdit extends React.Component {
 
   update = debounce(() => {
     console.log("Database update");
+    // this.props.updateNote();
   }, 1500);
 }
 
