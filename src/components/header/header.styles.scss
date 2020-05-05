@@ -1,15 +1,15 @@
 .header {
   display: flex;
-  margin: 3vh;
+  margin: 1vh 0vh 2vh 0vh;
   justify-content: flex-end;
   // padding: 0px;
 
   .user-account-pic {
-    padding-left: 3vw;
-    height: 10vh;
+    padding-left: 1vw;
+    height: 5vh;
   }
   .user-account-name {
-    font-size: 1rem;
-    padding-top: 2.3vh;
+    font-size: 0.8rem;
+    padding-top: 1.3vh;
   }
 }

@@ -22,10 +22,6 @@ class NotesList extends Component {
     this.updateNote = this.updateNote.bind(this);
   }
 
-  addNewNote = (e) => {
-    e.preventDefault();
-  };
-
   componentDidMount = () => {
     this.setState({
       notes: this.props.notes,
@@ -58,7 +54,7 @@ class NotesList extends Component {
       return { notes: newArray };
     });
   };
-  // addNewNote = () => {};
+
   render() {
     // console.log("note list state: ", this.state.notes);
     // console.log("note list props: ", this.props.notes);

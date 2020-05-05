@@ -1,6 +1,7 @@
 import React from "react";
 import ReactQuill from "react-quill";
 import Input from "@material-ui/core/Input";
+// import TextField from "@material-ui/core/TextField";
 import debounce from "../../helperFunctions";
 import "react-quill/dist/quill.snow.css"; // ES6
 import "./notes-edit.styles.scss";
@@ -13,6 +14,7 @@ class NotesEdit extends React.Component {
       body: "",
       id: "",
       title: "",
+      date: "",
     };
     this.updateTitle = this.updateTitle.bind(this);
     this.updateBody = this.updateBody.bind(this);
@@ -23,6 +25,7 @@ class NotesEdit extends React.Component {
       body: this.props.editingNote?.body,
       title: this.props.editingNote?.title,
       id: this.props.editingNote?.id,
+      date: this.props.editingNote?.date,
     });
   };
   componentDidUpdate = (prevProps) => {
@@ -35,6 +38,7 @@ class NotesEdit extends React.Component {
           body: this.props.editingNote.body,
           title: this.props.editingNote.title,
           id: this.props.editingNote.id,
+          date: this.props.editingNote.date,
         });
       }
     }
@@ -86,6 +90,7 @@ class NotesEdit extends React.Component {
       id: this.state.id,
       body: this.state.body,
       title: this.state.title,
+      date: this.state.date,
     });
   }, 1500);
 }
