@@ -75,7 +75,9 @@ class NotesEdit extends React.Component {
   }
   updateBody = async (value) => {
     await this.setState({ body: value });
+    console.log("update body called from edit");
     this.update();
+    console.log("after update function: notes-edit");
   };
 
   updateTitle = async (e) => {
@@ -85,13 +87,15 @@ class NotesEdit extends React.Component {
   };
 
   update = debounce(() => {
-    // console.log("Database update");
-    this.props.updateNote({
-      id: this.state.id,
-      body: this.state.body,
-      title: this.state.title,
-      date: this.state.date,
-    });
+    console.log("Database update");
+    this.state.id
+      ? this.props.updateNote({
+          id: this.state.id,
+          body: this.state.body,
+          title: this.state.title,
+          date: this.state.date,
+        })
+      : console.log("undefined");
   }, 1500);
 }
 

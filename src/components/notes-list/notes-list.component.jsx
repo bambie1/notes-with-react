@@ -7,11 +7,12 @@ import TextField from "@material-ui/core/TextField";
 import NoteAddOutlinedIcon from "@material-ui/icons/NoteAddOutlined";
 import List from "@material-ui/core/List";
 import NotesEdit from "../notes-edit/notes-edit.component";
-import { compareArrays } from "../../helperFunctions";
+// import { compareArrays } from "../../helperFunctions";
+import * as firebase from "firebase";
 
 class NotesList extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
 
     this.state = {
       selectedNoteIndex: 0,
@@ -20,39 +21,81 @@ class NotesList extends Component {
 
     this.handleClick = this.handleClick.bind(this);
     this.updateNote = this.updateNote.bind(this);
+    this.addNewNote = this.addNewNote.bind(this);
   }
 
   componentDidMount = () => {
-    this.setState({
-      notes: this.props.notes,
-    });
-  };
-
-  componentDidUpdate = (prevProps) => {
-    if (!compareArrays(this.props.notes, prevProps.notes)) {
-      this.setState({
-        notes: this.props.notes,
+    firebase
+      .firestore()
+      .collection("notes")
+      .onSnapshot((serverUpdate) => {
+        const fbNotes = serverUpdate.docs.map((doc) => {
+          const data = doc.data();
+          data["id"] = doc.id;
+          return data;
+        });
+        console.log(fbNotes);
+        this.setState({
+          notes: fbNotes,
+        });
       });
-    }
   };
 
   handleClick = (index) => {
     this.setState({ selectedNoteIndex: index });
-    console.log("selectedNoteIndex: ", index);
+    // console.log("selectedNoteIndex: ", index);
   };
 
-  updateNote = (updateNote) => {
-    this.setState((prevState) => {
-      const newArray = [];
-      console.log("update note: ", updateNote);
-      prevState.notes.map((note, index) => {
-        note?.id === updateNote?.id
-          ? (newArray[index] = updateNote)
-          : (newArray[index] = note);
-        return newArray;
-      });
-      return { notes: newArray };
+  addNewNote = async () => {
+    console.log("add new note called");
+    const today = new Date();
+    var newItem = {
+      title: "New note",
+      body: "<p>Text goes here</p>",
+      date: today.toString(),
+    };
+    const newFromDB = await firebase.firestore().collection("notes").add({
+      title: newItem.title,
+      body: newItem.body,
+      date: newItem.date, //firebase.firestore.FieldValue.serverTimestamp(),
     });
+    newItem.id = newFromDB.id;
+    // this.setState((prevState) => {
+    //   console.log("running setState");
+    //   return { notes: [...prevState.notes, newItem] };
+    // });
+  };
+
+  updateNote = (noteObj) => {
+    console.log("update note called");
+    const today = new Date();
+    firebase.firestore().collection("notes").doc(noteObj.id).update({
+      title: noteObj.title,
+      body: noteObj.body,
+      date: today.toString(),
+      // timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    });
+
+    // this.setState((prevState) => {
+    //   const newArray = [];
+    //   console.log("update note: ", noteObj);
+    //   prevState.notes.map((note, index) => {
+    //     // console.log("note id: ", index, note?.id);
+    //     this.state.selectedNoteIndex === index
+    //       ? (newArray[index] = noteObj)
+    //       : (newArray[index] = note);
+
+    //     // note?.id === updateNote?.id
+    //     //   ? (newArray[index] = updateNote)
+    //     //   : (newArray[index] = note);
+    //     // return newArray;
+    //   });
+    //   if (compareArrays(newArray, prevState.notes)) {
+    //     console.log("same array");
+    //   } else {
+    //     return { notes: newArray };
+    //   }
+    // });
   };
 
   render() {
@@ -76,7 +119,7 @@ class NotesList extends Component {
             />
             <NoteAddOutlinedIcon
               className="add-note-icon"
-              onClick={this.props.addNewNote}
+              onClick={this.addNewNote}
               fontSize="large"
               style={{ color: "#cac6a8" }}
             />
