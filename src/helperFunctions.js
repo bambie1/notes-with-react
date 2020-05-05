@@ -16,3 +16,12 @@ export default function debounce(a, b, c) {
 export function removeHTMLTags(str) {
   return str.replace(/<[^>]*>?/gm, "");
 }
+
+export function compareArrays(a, b) {
+  return (
+    a.length === b.length &&
+    a.sort().every(function (value, index) {
+      return value === b.sort()[index];
+    })
+  );
+}

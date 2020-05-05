@@ -9,9 +9,11 @@
   justify-content: space-evenly;
 
   .notes-search-bar {
-    border-radius: 16%;
-    box-shadow: none;
-    width: 80%;
-    padding: 0.3vw;
+    margin: 7px 0px 0px 3px;
+  }
+
+  .add-note-icon {
+    padding-top: 2.2vh;
+    width: 13%;
   }
 }

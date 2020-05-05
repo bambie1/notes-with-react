@@ -1,11 +1,13 @@
 import React, { Fragment, Component } from "react";
 import "./notes-list.styles.scss";
 import NoteItem from "../note-item/note-item.component";
-import Button from "@material-ui/core/Button";
+// import Button from "@material-ui/core/Button";
 // import Input from "@material-ui/core/Input";
-import AddIcon from "@material-ui/icons/Add";
+import TextField from "@material-ui/core/TextField";
+import NoteAddOutlinedIcon from "@material-ui/icons/NoteAddOutlined";
 import List from "@material-ui/core/List";
 import NotesEdit from "../notes-edit/notes-edit.component";
+import { compareArrays } from "../../helperFunctions";
 
 class NotesList extends Component {
   constructor(props) {
@@ -13,6 +15,7 @@ class NotesList extends Component {
 
     this.state = {
       selectedNoteIndex: 0,
+      notes: [],
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -23,12 +26,38 @@ class NotesList extends Component {
     e.preventDefault();
   };
 
+  componentDidMount = () => {
+    this.setState({
+      notes: this.props.notes,
+    });
+  };
+
+  componentDidUpdate = (prevProps) => {
+    if (!compareArrays(this.props.notes, prevProps.notes)) {
+      this.setState({
+        notes: this.props.notes,
+      });
+    }
+  };
+
   handleClick = (index) => {
     this.setState({ selectedNoteIndex: index });
     console.log("selectedNoteIndex: ", index);
   };
 
-  updateNote = (update) => {};
+  updateNote = (updateNote) => {
+    this.setState((prevState) => {
+      const newArray = [];
+      console.log("update note: ", updateNote);
+      prevState.notes.map((note, index) => {
+        note?.id === updateNote?.id
+          ? (newArray[index] = updateNote)
+          : (newArray[index] = note);
+        return newArray;
+      });
+      return { notes: newArray };
+    });
+  };
   // addNewNote = () => {};
   render() {
     // console.log("note list state: ", this.state.notes);
@@ -38,26 +67,31 @@ class NotesList extends Component {
         <div className="notes-list">
           <div className="section-head">
             {/* <Button onClick={this.props.addNewNote}>Add note</Button> */}
-            <input
+            <TextField
               onChange={() => {
-                console.log("serach bar");
+                console.log("search bar");
               }}
               className="notes-search-bar"
-              placeholder="Search for note"
+              label="Search notes"
+              type="search"
+              variant="outlined"
+              size="small"
+              fullWidth
             />
-            <Button>
-              <AddIcon onClick={this.props.addNewNote} />
-            </Button>
+            <NoteAddOutlinedIcon
+              className="add-note-icon"
+              onClick={this.props.addNewNote}
+              fontSize="large"
+              style={{ color: "#cac6a8" }}
+            />
           </div>
           <hr />
           <List>
-            {this.props.notes.map(({ id, ...otherProps }, index) => (
+            {this.state.notes.map(({ id, ...otherProps }, index) => (
               <NoteItem
                 key={id}
                 className={
-                  index === this.state.selectedNoteIndex
-                    ? "selected-note"
-                    : "unselected-note"
+                  index === this.state.selectedNoteIndex ? "selected-note" : ""
                 }
                 index={index}
                 fbID={id}
@@ -68,8 +102,8 @@ class NotesList extends Component {
           </List>
         </div>
         <NotesEdit
-          editingNote={this.props.notes[this.state.selectedNoteIndex]}
-          // updateNote={()=>this.updateNote()}
+          editingNote={this.state.notes[this.state.selectedNoteIndex]}
+          updateNote={this.updateNote}
         />
       </Fragment>
     );

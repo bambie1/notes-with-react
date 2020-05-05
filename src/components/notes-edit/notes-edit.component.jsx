@@ -49,8 +49,8 @@ class NotesEdit extends React.Component {
             name="title"
             type="text"
             placeholder="Note title"
-            defaultValue={this.state.title}
-            // value={this.state.title}
+            // defaultValue={this.state.title}
+            value={this.state.title}
             onChange={this.updateTitle}
           ></Input>
 
@@ -77,11 +77,16 @@ class NotesEdit extends React.Component {
   updateTitle = async (e) => {
     const { name, value } = e.target;
     await this.setState({ [name]: value });
+    this.update();
   };
 
   update = debounce(() => {
-    console.log("Database update");
-    // this.props.updateNote();
+    // console.log("Database update");
+    this.props.updateNote({
+      id: this.state.id,
+      body: this.state.body,
+      title: this.state.title,
+    });
   }, 1500);
 }
 
