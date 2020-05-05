@@ -2,6 +2,7 @@ import React from "react";
 import ReactQuill from "react-quill";
 import Input from "@material-ui/core/Input";
 // import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 import debounce from "../../helperFunctions";
 import "react-quill/dist/quill.snow.css"; // ES6
 import "./notes-edit.styles.scss";
@@ -29,6 +30,7 @@ class NotesEdit extends React.Component {
     });
   };
   componentDidUpdate = (prevProps) => {
+    console.log("edit did update");
     if (this.props.editingNote) {
       if (
         this.props.editingNote.id !== prevProps.editingNote?.id ||
@@ -59,10 +61,16 @@ class NotesEdit extends React.Component {
           ></Input>
 
           <div className="notes-edit-controls">
-            <span>Delete</span>
+            {/* {this.state.id ? (
+              <Button onClick={this.props.deleteNote(this.state.id)}>
+                Delete note
+              </Button>
+            ) : (
+              ""
+            )} */}
           </div>
         </div>
-        <hr />
+        {/* <hr /> */}
         <ReactQuill
           name="body"
           theme="snow"

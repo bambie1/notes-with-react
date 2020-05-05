@@ -10,6 +10,7 @@ import NotesEdit from "../notes-edit/notes-edit.component";
 // import { compareArrays } from "../../helperFunctions";
 import * as firebase from "firebase";
 
+const today = new Date();
 class NotesList extends Component {
   constructor() {
     super();
@@ -22,6 +23,7 @@ class NotesList extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.updateNote = this.updateNote.bind(this);
     this.addNewNote = this.addNewNote.bind(this);
+    this.deleteNote = this.deleteNote.bind(this);
   }
 
   componentDidMount = () => {
@@ -48,7 +50,6 @@ class NotesList extends Component {
 
   addNewNote = async () => {
     console.log("add new note called");
-    const today = new Date();
     var newItem = {
       title: "New note",
       body: "<p>Text goes here</p>",
@@ -60,42 +61,21 @@ class NotesList extends Component {
       date: newItem.date, //firebase.firestore.FieldValue.serverTimestamp(),
     });
     newItem.id = newFromDB.id;
-    // this.setState((prevState) => {
-    //   console.log("running setState");
-    //   return { notes: [...prevState.notes, newItem] };
-    // });
   };
 
   updateNote = (noteObj) => {
     console.log("update note called");
-    const today = new Date();
     firebase.firestore().collection("notes").doc(noteObj.id).update({
       title: noteObj.title,
       body: noteObj.body,
       date: today.toString(),
       // timestamp: firebase.firestore.FieldValue.serverTimestamp()
     });
+  };
 
-    // this.setState((prevState) => {
-    //   const newArray = [];
-    //   console.log("update note: ", noteObj);
-    //   prevState.notes.map((note, index) => {
-    //     // console.log("note id: ", index, note?.id);
-    //     this.state.selectedNoteIndex === index
-    //       ? (newArray[index] = noteObj)
-    //       : (newArray[index] = note);
-
-    //     // note?.id === updateNote?.id
-    //     //   ? (newArray[index] = updateNote)
-    //     //   : (newArray[index] = note);
-    //     // return newArray;
-    //   });
-    //   if (compareArrays(newArray, prevState.notes)) {
-    //     console.log("same array");
-    //   } else {
-    //     return { notes: newArray };
-    //   }
-    // });
+  deleteNote = (noteID) => {
+    console.log("Note to delete: ", noteID);
+    firebase.firestore().collection("notes").doc(noteID).delete();
   };
 
   render() {
@@ -134,6 +114,7 @@ class NotesList extends Component {
                 }
                 index={index}
                 fbID={id}
+                deleteNote={this.deleteNote}
                 onClick={() => this.handleClick(index)}
                 {...otherProps}
               />
@@ -143,6 +124,7 @@ class NotesList extends Component {
         <NotesEdit
           editingNote={this.state.notes[this.state.selectedNoteIndex]}
           updateNote={this.updateNote}
+          // deleteNote={this.deleteNote}
         />
       </Fragment>
     );

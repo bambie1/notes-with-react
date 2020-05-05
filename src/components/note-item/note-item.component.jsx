@@ -35,7 +35,7 @@ class NoteItem extends React.Component {
             <p className="note-brief">
               {body.length > 35
                 ? removeHTMLTags(body).substring(0, 35) + " ..."
-                : body}
+                : removeHTMLTags(body)}
             </p>
             <p className="note-date">{date}</p>
           </div>
