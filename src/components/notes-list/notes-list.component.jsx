@@ -73,9 +73,12 @@ class NotesList extends Component {
     });
   };
 
-  deleteNote = (noteID) => {
+  deleteNote = async (noteID) => {
     console.log("Note to delete: ", noteID);
-    firebase.firestore().collection("notes").doc(noteID).delete();
+    await firebase.firestore().collection("notes").doc(noteID).delete();
+    // if (this.state.notes.length < 1) {
+    //   this.addNewNote();
+    // }
   };
 
   render() {
@@ -105,27 +108,35 @@ class NotesList extends Component {
             />
           </div>
           <hr />
-          <List>
-            {this.state.notes.map(({ id, ...otherProps }, index) => (
-              <NoteItem
-                key={id}
-                className={
-                  index === this.state.selectedNoteIndex ? "selected-note" : ""
-                }
-                index={index}
-                fbID={id}
-                deleteNote={this.deleteNote}
-                onClick={() => this.handleClick(index)}
-                {...otherProps}
-              />
-            ))}
-          </List>
+          {this.state.notes.length < 1 ? (
+            <div>No notes to display</div>
+          ) : (
+            <List>
+              {this.state.notes.map(({ id, ...otherProps }, index) => (
+                <NoteItem
+                  key={id}
+                  className={
+                    index === this.state.selectedNoteIndex
+                      ? "selected-note"
+                      : ""
+                  }
+                  index={index}
+                  fbID={id}
+                  deleteNote={this.deleteNote}
+                  onClick={() => this.handleClick(index)}
+                  {...otherProps}
+                />
+              ))}
+            </List>
+          )}
         </div>
-        <NotesEdit
-          editingNote={this.state.notes[this.state.selectedNoteIndex]}
-          updateNote={this.updateNote}
-          // deleteNote={this.deleteNote}
-        />
+        {this.state.notes.length > 0 ? (
+          <NotesEdit
+            editingNote={this.state.notes[this.state.selectedNoteIndex]}
+            updateNote={this.updateNote}
+            deleteNote={this.deleteNote}
+          />
+        ) : null}
       </Fragment>
     );
   }

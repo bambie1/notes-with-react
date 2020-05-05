@@ -12,13 +12,15 @@ class NoteItem extends React.Component {
       isNoteClicked: false,
     };
     this.handleClick = this.handleClick.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
   handleClick = () => {
     this.props.onClick();
-    // this.setState((prevState) => ({
-    //   isNoteClicked: false, //!prevState.isNoteClicked,
-    // }));
-    // console.log("clicked props: ", this.props);
+  };
+
+  handleDelete = () => {
+    console.log("note item id: ", this.props.fbID);
+    this.props.deleteNote(this.props.fbID);
   };
 
   render() {
@@ -39,7 +41,10 @@ class NoteItem extends React.Component {
             </p>
             <p className="note-date">{date}</p>
           </div>
-          <DeleteIcon className="deleteIcon"></DeleteIcon>
+          <DeleteIcon
+            onClick={this.handleDelete}
+            className="deleteIcon"
+          ></DeleteIcon>
         </ListItem>
         <hr />
       </Fragment>

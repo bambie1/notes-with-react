@@ -19,6 +19,7 @@ class NotesEdit extends React.Component {
     };
     this.updateTitle = this.updateTitle.bind(this);
     this.updateBody = this.updateBody.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   componentDidMount = () => {
@@ -46,6 +47,11 @@ class NotesEdit extends React.Component {
     }
   };
 
+  handleDelete = () => {
+    console.log("state id: ", this.state.id);
+    this.props.deleteNote(this.state.id);
+  };
+
   render() {
     return (
       <div className="notes-edit">
@@ -61,13 +67,11 @@ class NotesEdit extends React.Component {
           ></Input>
 
           <div className="notes-edit-controls">
-            {/* {this.state.id ? (
-              <Button onClick={this.props.deleteNote(this.state.id)}>
-                Delete note
-              </Button>
+            {this.state.id ? (
+              <Button onClick={this.handleDelete}>Delete note</Button>
             ) : (
               ""
-            )} */}
+            )}
           </div>
         </div>
         {/* <hr /> */}
