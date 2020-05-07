@@ -16,7 +16,7 @@ class MainContent extends Component {
     super();
 
     this.state = {
-      selectedNoteIndex: 0,
+      selectedNoteIndex: null,
       notes: [],
       searchPhrase: "",
       isNoteClicked: false,
@@ -27,6 +27,7 @@ class MainContent extends Component {
     this.addNewNote = this.addNewNote.bind(this);
     this.deleteNote = this.deleteNote.bind(this);
     this.viewNotes = this.viewNotes.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   componentDidMount = () => {
@@ -82,6 +83,14 @@ class MainContent extends Component {
     });
   };
 
+  handleSearch = (e) => {
+    this.setState({
+      searchPhrase: e.target.value,
+      selectedNoteIndex: 0,
+    });
+    // console.log("search bar:", e.target.value);
+  };
+
   deleteNote = async (noteID) => {
     console.log("Note to delete: ", noteID);
     var result = window.confirm("Do you want to delete this note?");
@@ -93,6 +102,14 @@ class MainContent extends Component {
   render() {
     // console.log("note list state: ", this.state.notes);
     // console.log("note list props: ", this.props.notes);
+    var filtNotes;
+    const { notes, searchPhrase } = this.state;
+    notes.length > 0
+      ? (filtNotes = notes.filter((note) =>
+          note.body.toLowerCase().includes(searchPhrase.toLowerCase())
+        ))
+      : (filtNotes = []);
+
     return (
       <div className="content">
         <div
@@ -105,12 +122,7 @@ class MainContent extends Component {
           <div className="section-head">
             {/* <Button onClick={this.props.addNewNote}>Add note</Button> */}
             <TextField
-              onChange={(e) => {
-                // this.setState({
-
-                // })
-                console.log("search bar:", e, e.target);
-              }}
+              onChange={this.handleSearch}
               className="notes-search-bar"
               label="Search notes"
               type="search"
@@ -127,12 +139,12 @@ class MainContent extends Component {
             />
           </div>
           <hr />
-          {this.state.notes.length < 1 ? (
+          {filtNotes.length < 1 ? (
             <div>No notes to display</div>
           ) : (
             <Fragment>
               <List>
-                {this.state.notes.map(({ id, ...otherProps }, index) => (
+                {filtNotes.map(({ id, ...otherProps }, index) => (
                   <NoteItem
                     key={id}
                     className={
@@ -155,7 +167,7 @@ class MainContent extends Component {
         {/* {this.state.notes.length > 0 ? ( */}
         {this.state.isNoteClicked ? (
           <NotesEdit
-            editingNote={this.state.notes[this.state.selectedNoteIndex]}
+            editingNote={filtNotes[this.state.selectedNoteIndex]}
             updateNote={this.updateNote}
             deleteNote={this.deleteNote}
             viewNotes={this.viewNotes}

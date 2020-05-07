@@ -3,20 +3,17 @@
   width: 100%;
 
   .notes-edit-title {
-    width: 70%;
+    width: 100%;
     font-weight: bold;
     padding-top: 15px;
   }
   .notes-edit-header {
-    display: flex;
-    justify-content: space-between;
-    height: 45px;
-    padding-bottom: 2vh;
+    padding-right: 15px;
     padding-left: 15px;
   }
   .notes-edit-controls {
     display: flex;
-    padding-top: 15px;
+    justify-content: space-between;
   }
 
   .quill {
@@ -33,25 +30,21 @@
     // padding-left: 10px;
     // padding-right: 10px;
 
-    // .notes-edit-title {
-    //   width: 70%;
-    //   font-weight: bold;
-    //   padding-top: 15px;
-    // }
+    .notes-edit-title {
+      width: 70%;
+      font-weight: bold;
+      padding-top: 15px;
+    }
 
-    // .notes-edit-header {
-    //   display: flex;
-    //   justify-content: space-between;
-    //   height: 45px;
-    //   padding-bottom: 2vh;
-    //   padding-left: 15px;
-    // }
-    // .notes-edit-controls {
-    //   padding-top: 15px;
-    // }
-
-    // .quill {
-    //   height: 100%;
-    // }
+    .notes-edit-header {
+      display: flex;
+      justify-content: space-between;
+      height: 45px;
+      padding-bottom: 2vh;
+      padding-left: 15px;
+    }
+    .notes-edit-controls {
+      padding-top: 15px;
+    }
   }
 }
