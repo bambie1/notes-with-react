@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "./components/header/header.component";
-import Main from "./components/main/main.component";
+import MainContent from "./components/main-content/main-content.component";
 
 import "./App.css";
 
@@ -17,7 +17,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <Header />
-        <Main />
+        <MainContent />
       </div>
     );
   }

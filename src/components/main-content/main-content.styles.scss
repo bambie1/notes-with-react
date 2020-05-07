@@ -1,4 +1,10 @@
 // @use '../../base';
+.content {
+  border: 1px solid #886c6c;
+  overflow: hidden;
+  min-height: 87vh;
+}
+
 .notes-list {
   width: 100%;
 
@@ -28,6 +34,11 @@
 }
 
 @media only screen and (min-width: 768px) {
+  .content {
+    display: flex;
+    min-height: 90vh;
+  }
+
   .list-component-hide,
   .list-component-show {
     display: block;

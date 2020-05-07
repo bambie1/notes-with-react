@@ -1,5 +1,5 @@
 import React, { Fragment, Component } from "react";
-import "./notes-list.styles.scss";
+import "./main-content.styles.scss";
 import NoteItem from "../note-item/note-item.component";
 // import Button from "@material-ui/core/Button";
 // import Input from "@material-ui/core/Input";
@@ -11,7 +11,7 @@ import NotesEdit from "../notes-edit/notes-edit.component";
 import * as firebase from "firebase";
 
 const today = new Date();
-class NotesList extends Component {
+class MainContent extends Component {
   constructor() {
     super();
 
@@ -94,7 +94,7 @@ class NotesList extends Component {
     // console.log("note list state: ", this.state.notes);
     // console.log("note list props: ", this.props.notes);
     return (
-      <Fragment>
+      <div className="content">
         <div
           className={
             this.state.isNoteClicked
@@ -163,9 +163,9 @@ class NotesList extends Component {
         ) : (
           ""
         )}
-      </Fragment>
+      </div>
     );
   }
 }
 
-export default NotesList;
+export default MainContent;
