@@ -1,6 +1,7 @@
-.main{
-    display: flex;
-    border: 1px solid grey;
-    overflow: hidden;
-    min-height: 90vh;
+// @use '../../base';
+.main {
+  display: flex;
+  border: 1px solid #886c6c;
+  overflow: hidden;
+  min-height: 90vh;
 }

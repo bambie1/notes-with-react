@@ -1,7 +1,8 @@
+// @use '../../base';
 .notes-edit {
   width: 67%;
-  padding-left: 10px;
-  padding-right: 10px;
+  // padding-left: 10px;
+  // padding-right: 10px;
 
   .notes-edit-title {
     width: 70%;
@@ -14,6 +15,7 @@
     justify-content: space-between;
     height: 45px;
     padding-bottom: 2vh;
+    padding-left: 15px;
   }
   .notes-edit-controls {
     padding-top: 15px;

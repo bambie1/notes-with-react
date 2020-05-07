@@ -1,8 +1,9 @@
+// @use '../../base';
 .header {
-  display: flex;
-  margin: 1vh 0vh 2vh 0vh;
-  justify-content: flex-end;
-  // padding: 0px;
+  display: inline-block;
+  margin: 1vh 3vh 2vh 74vw;
+  border: 1px solid #886c6c;
+  padding: 1vh;
 
   .user-account-pic {
     padding-left: 1vw;
@@ -10,6 +11,6 @@
   }
   .user-account-name {
     font-size: 0.8rem;
-    padding-top: 1.3vh;
+    // padding-top: 1.3vh;
   }
 }

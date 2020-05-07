@@ -1,7 +1,13 @@
+// @use '../../base';
+
 .notes-list {
   width: 33%;
-  border-right: 1px solid grey;
+  border-right: 1px solid #886c6c;
   // margin-top: 31px;
+
+  hr {
+    border-color: #886c6c;
+  }
 }
 .section-head {
   // list-style: none;
@@ -16,5 +22,6 @@
     padding-top: 2.2vh;
     width: 13%;
     cursor: pointer;
+    color: #886c6c;
   }
 }

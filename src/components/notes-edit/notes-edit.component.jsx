@@ -77,7 +77,7 @@ class NotesEdit extends React.Component {
         {/* <hr /> */}
         <ReactQuill
           name="body"
-          theme="snow"
+          // theme="snow"
           value={`${this.state.body}`}
           onChange={this.updateBody}
         ></ReactQuill>

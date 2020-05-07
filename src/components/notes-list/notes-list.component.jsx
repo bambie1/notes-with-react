@@ -3,6 +3,13 @@ import "./notes-list.styles.scss";
 import NoteItem from "../note-item/note-item.component";
 // import Button from "@material-ui/core/Button";
 // import Input from "@material-ui/core/Input";
+import {
+  fade,
+  ThemeProvider,
+  withStyles,
+  makeStyles,
+  createMuiTheme,
+} from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import NoteAddOutlinedIcon from "@material-ui/icons/NoteAddOutlined";
 import List from "@material-ui/core/List";
@@ -75,10 +82,10 @@ class NotesList extends Component {
 
   deleteNote = async (noteID) => {
     console.log("Note to delete: ", noteID);
-    await firebase.firestore().collection("notes").doc(noteID).delete();
-    // if (this.state.notes.length < 1) {
-    //   this.addNewNote();
-    // }
+    var result = window.confirm("Do you want to delete this note?");
+    if (result) {
+      await firebase.firestore().collection("notes").doc(noteID).delete();
+    }
   };
 
   render() {
@@ -104,30 +111,34 @@ class NotesList extends Component {
               className="add-note-icon"
               onClick={this.addNewNote}
               fontSize="large"
-              style={{ color: "#cac6a8" }}
+              style={{ color: "#886c6c" }}
+              title="Add note"
             />
           </div>
           <hr />
           {this.state.notes.length < 1 ? (
             <div>No notes to display</div>
           ) : (
-            <List>
-              {this.state.notes.map(({ id, ...otherProps }, index) => (
-                <NoteItem
-                  key={id}
-                  className={
-                    index === this.state.selectedNoteIndex
-                      ? "selected-note"
-                      : ""
-                  }
-                  index={index}
-                  fbID={id}
-                  deleteNote={this.deleteNote}
-                  onClick={() => this.handleClick(index)}
-                  {...otherProps}
-                />
-              ))}
-            </List>
+            <Fragment>
+              <List>
+                {this.state.notes.map(({ id, ...otherProps }, index) => (
+                  <NoteItem
+                    key={id}
+                    className={
+                      index === this.state.selectedNoteIndex
+                        ? "selected-note"
+                        : ""
+                    }
+                    index={index}
+                    fbID={id}
+                    deleteNote={this.deleteNote}
+                    onClick={() => this.handleClick(index)}
+                    {...otherProps}
+                  />
+                ))}
+              </List>
+              {/* <hr /> */}
+            </Fragment>
           )}
         </div>
         {this.state.notes.length > 0 ? (

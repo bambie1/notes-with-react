@@ -1,3 +1,4 @@
+// @use '../../base';
 .note-body {
   .note-title {
     font-size: 16px;
@@ -20,11 +21,18 @@
   padding-right: 5px;
   cursor: pointer;
 
-  :hover {
-    opacity: 0.7;
+  &:hover {
+    opacity: 0.8;
+    background-color: #a39bb2;
+  }
+
+  .deleteIcon {
+    &:hover {
+      color: red;
+    }
   }
 }
 
 .selected-note {
-  background-color: #cac6a8;
+  background-color: #a39bb2;
 }
