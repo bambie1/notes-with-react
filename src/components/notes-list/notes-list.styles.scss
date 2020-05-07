@@ -1,16 +1,17 @@
 // @use '../../base';
-
 .notes-list {
-  width: 33%;
-  border-right: 1px solid #886c6c;
-  // margin-top: 31px;
+  width: 100%;
 
   hr {
     border-color: #886c6c;
   }
 }
+
+.list-component-hide {
+  display: none;
+}
+
 .section-head {
-  // list-style: none;
   display: flex;
   justify-content: space-evenly;
 
@@ -24,4 +25,32 @@
     cursor: pointer;
     color: #886c6c;
   }
+}
+
+@media only screen and (min-width: 768px) {
+  .list-component-hide,
+  .list-component-show {
+    display: block;
+  }
+  .notes-list {
+    width: 33%;
+    border-right: 1px solid #886c6c;
+    // margin-top: 31px;
+  }
+  // .section-head {
+  //   // list-style: none;
+  //   display: flex;
+  //   justify-content: space-evenly;
+
+  //   .notes-search-bar {
+  //     margin: 7px 0px 0px 3px;
+  //   }
+
+  //   .add-note-icon {
+  //     padding-top: 2.2vh;
+  //     width: 13%;
+  //     cursor: pointer;
+  //     color: #886c6c;
+  //   }
+  // }
 }

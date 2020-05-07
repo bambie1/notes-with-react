@@ -3,13 +3,6 @@ import "./notes-list.styles.scss";
 import NoteItem from "../note-item/note-item.component";
 // import Button from "@material-ui/core/Button";
 // import Input from "@material-ui/core/Input";
-import {
-  fade,
-  ThemeProvider,
-  withStyles,
-  makeStyles,
-  createMuiTheme,
-} from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import NoteAddOutlinedIcon from "@material-ui/icons/NoteAddOutlined";
 import List from "@material-ui/core/List";
@@ -25,12 +18,15 @@ class NotesList extends Component {
     this.state = {
       selectedNoteIndex: 0,
       notes: [],
+      searchPhrase: "",
+      isNoteClicked: false,
     };
 
-    this.handleClick = this.handleClick.bind(this);
+    this.selectNote = this.selectNote.bind(this);
     this.updateNote = this.updateNote.bind(this);
     this.addNewNote = this.addNewNote.bind(this);
     this.deleteNote = this.deleteNote.bind(this);
+    this.viewNotes = this.viewNotes.bind(this);
   }
 
   componentDidMount = () => {
@@ -50,9 +46,15 @@ class NotesList extends Component {
       });
   };
 
-  handleClick = (index) => {
-    this.setState({ selectedNoteIndex: index });
-    // console.log("selectedNoteIndex: ", index);
+  selectNote = (index) => {
+    this.setState({ selectedNoteIndex: index, isNoteClicked: true });
+    console.log("selectedNoteIndex: ", index);
+  };
+
+  viewNotes = () => {
+    this.setState({
+      isNoteClicked: false,
+    });
   };
 
   addNewNote = async () => {
@@ -93,12 +95,21 @@ class NotesList extends Component {
     // console.log("note list props: ", this.props.notes);
     return (
       <Fragment>
-        <div className="notes-list">
+        <div
+          className={
+            this.state.isNoteClicked
+              ? "list-component-hide notes-list"
+              : "list-component-show notes-list"
+          }
+        >
           <div className="section-head">
             {/* <Button onClick={this.props.addNewNote}>Add note</Button> */}
             <TextField
-              onChange={() => {
-                console.log("search bar");
+              onChange={(e) => {
+                // this.setState({
+
+                // })
+                console.log("search bar:", e, e.target);
               }}
               className="notes-search-bar"
               label="Search notes"
@@ -132,7 +143,7 @@ class NotesList extends Component {
                     index={index}
                     fbID={id}
                     deleteNote={this.deleteNote}
-                    onClick={() => this.handleClick(index)}
+                    onClick={() => this.selectNote(index)}
                     {...otherProps}
                   />
                 ))}
@@ -141,13 +152,17 @@ class NotesList extends Component {
             </Fragment>
           )}
         </div>
-        {this.state.notes.length > 0 ? (
+        {/* {this.state.notes.length > 0 ? ( */}
+        {this.state.isNoteClicked ? (
           <NotesEdit
             editingNote={this.state.notes[this.state.selectedNoteIndex]}
             updateNote={this.updateNote}
             deleteNote={this.deleteNote}
+            viewNotes={this.viewNotes}
           />
-        ) : null}
+        ) : (
+          ""
+        )}
       </Fragment>
     );
   }

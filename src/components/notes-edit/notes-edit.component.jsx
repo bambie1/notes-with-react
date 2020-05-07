@@ -67,8 +67,18 @@ class NotesEdit extends React.Component {
           ></Input>
 
           <div className="notes-edit-controls">
+            <Button
+              className="view-notes-button"
+              onClick={() => {
+                this.props.viewNotes();
+              }}
+            >
+              Notes
+            </Button>
             {this.state.id ? (
-              <Button onClick={this.handleDelete}>Delete note</Button>
+              <Button className="delete-btn" onClick={this.handleDelete}>
+                Delete
+              </Button>
             ) : (
               ""
             )}

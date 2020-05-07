@@ -1,15 +1,12 @@
 // @use '../../base';
 .notes-edit {
-  width: 67%;
-  // padding-left: 10px;
-  // padding-right: 10px;
+  width: 100%;
 
   .notes-edit-title {
     width: 70%;
     font-weight: bold;
     padding-top: 15px;
   }
-
   .notes-edit-header {
     display: flex;
     justify-content: space-between;
@@ -18,10 +15,43 @@
     padding-left: 15px;
   }
   .notes-edit-controls {
+    display: flex;
     padding-top: 15px;
   }
 
   .quill {
     height: 100%;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .view-notes-button {
+    display: none !important;
+  }
+  .notes-edit {
+    width: 67%;
+    // padding-left: 10px;
+    // padding-right: 10px;
+
+    // .notes-edit-title {
+    //   width: 70%;
+    //   font-weight: bold;
+    //   padding-top: 15px;
+    // }
+
+    // .notes-edit-header {
+    //   display: flex;
+    //   justify-content: space-between;
+    //   height: 45px;
+    //   padding-bottom: 2vh;
+    //   padding-left: 15px;
+    // }
+    // .notes-edit-controls {
+    //   padding-top: 15px;
+    // }
+
+    // .quill {
+    //   height: 100%;
+    // }
   }
 }

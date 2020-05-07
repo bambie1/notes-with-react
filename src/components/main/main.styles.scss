@@ -1,7 +1,12 @@
 // @use '../../base';
 .main {
-  display: flex;
   border: 1px solid #886c6c;
   overflow: hidden;
-  min-height: 90vh;
+  min-height: 87vh;
+}
+@media only screen and (min-width: 768px) {
+  .main {
+    display: flex;
+    min-height: 90vh;
+  }
 }
