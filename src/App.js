@@ -1,26 +1,21 @@
 import React from "react";
-import Header from "./components/header/header.component";
-import MainContent from "./components/main-content/main-content.component";
+import NotesPage from "./pages/notes-page/notes-page";
+import HomePage from "./pages/home-page/home-page";
+import SignInPage from "./pages/sign-in-page/sign-in-page";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import "./App.css";
 
-class App extends React.Component {
-  constructor() {
-    super();
-
-    this.state = {
-      junknotes: null,
-    };
-  }
-
-  render() {
-    return (
-      <div className="App">
-        <Header />
-        <MainContent />
-      </div>
-    );
-  }
-}
+const App = () => {
+  return (
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/" component={HomePage} />
+        <Route path="/notes" component={NotesPage} />
+        <Route path="/signin" component={SignInPage} />
+      </Switch>
+    </BrowserRouter>
+  );
+};
 
 export default App;

@@ -8,7 +8,8 @@ import NoteAddOutlinedIcon from "@material-ui/icons/NoteAddOutlined";
 import List from "@material-ui/core/List";
 import NotesEdit from "../notes-edit/notes-edit.component";
 // import { compareArrays } from "../../helperFunctions";
-import * as firebase from "firebase";
+import firebase from "firebase/app";
+import "firebase/firestore";
 
 const today = new Date();
 class MainContent extends Component {

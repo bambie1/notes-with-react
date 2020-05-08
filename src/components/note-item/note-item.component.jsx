@@ -31,12 +31,12 @@ class NoteItem extends React.Component {
         <ListItem className={`note-container ${this.props.className}`}>
           <div className="note-body" onClick={this.handleClick}>
             <span className="note-title">
-              {title.length > 35 ? title.substring(0, 35) + " ..." : title}
+              {title.length > 29 ? title.substring(0, 29) + " ..." : title}
             </span>
 
             <p className="note-brief">
-              {body.length > 35
-                ? removeHTMLTags(body).substring(0, 35) + " ..."
+              {body.length > 33
+                ? removeHTMLTags(body).substring(0, 33) + " ..."
                 : removeHTMLTags(body)}
             </p>
             <p className="note-date">{date}</p>
