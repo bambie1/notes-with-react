@@ -6,7 +6,7 @@ import Button from "@material-ui/core/Button";
 const HomePage = () => {
   return (
     <div className="home-page">
-      <h3>
+      <h3 className="welcome-heading">
         WELCOME TO <span>UNCLTR</span>
       </h3>
       <span>Keep your mind uncluttered, write it down</span>

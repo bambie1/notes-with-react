@@ -71,7 +71,7 @@ class SignIn extends React.Component {
             required
           />
         </FormControl>
-        <Button className="sign-in-btn">Sign in</Button>
+        <Button className="sign-in-btn">Sign in with Google</Button>
       </div>
     );
   }
