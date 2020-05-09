@@ -32,17 +32,6 @@ class MainContent extends Component {
   }
 
   componentDidMount = () => {
-    // firestore.collection("notes").onSnapshot((serverUpdate) => {
-    //   const fbNotes = serverUpdate.docs.map((doc) => {
-    //     const data = doc.data();
-    //     data["id"] = doc.id;
-    //     return data;
-    //   });
-    //   console.log(fbNotes);
-    //   this.setState({
-    //     notes: fbNotes,
-    //   });
-    // });
     this.setState({
       notes: this.props.notes,
     });
@@ -71,12 +60,12 @@ class MainContent extends Component {
     console.log("add new note called");
     var newItem = {
       title: "New note",
-      body: "<p>Text goes here</p>",
+      text: "<p>Text goes here</p>",
       date: today.toString(),
     };
     const newFromDB = await firestore.collection("notes").add({
       title: newItem.title,
-      body: newItem.body,
+      text: newItem.text,
       date: newItem.date, //firebase.firestore.FieldValue.serverTimestamp(),
     });
     newItem.id = newFromDB.id;
@@ -86,7 +75,7 @@ class MainContent extends Component {
     console.log("update note called");
     firestore.collection("notes").doc(noteObj.id).update({
       title: noteObj.title,
-      body: noteObj.body,
+      text: noteObj.text,
       date: today.toString(),
       // timestamp: firebase.firestore.FieldValue.serverTimestamp()
     });

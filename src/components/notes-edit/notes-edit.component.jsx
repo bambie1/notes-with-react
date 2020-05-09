@@ -12,19 +12,19 @@ class NotesEdit extends React.Component {
     super();
     this.state = {
       isEditing: false,
-      body: "",
+      text: "",
       id: "",
       title: "",
       date: "",
     };
     this.updateTitle = this.updateTitle.bind(this);
-    this.updateBody = this.updateBody.bind(this);
+    this.updateText = this.updateText.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
   }
 
   componentDidMount = () => {
     this.setState({
-      body: this.props.editingNote?.body,
+      text: this.props.editingNote?.text,
       title: this.props.editingNote?.title,
       id: this.props.editingNote?.id,
       date: this.props.editingNote?.date,
@@ -38,7 +38,7 @@ class NotesEdit extends React.Component {
         prevProps.editingNote === undefined
       ) {
         this.setState({
-          body: this.props.editingNote.body,
+          text: this.props.editingNote.text,
           title: this.props.editingNote.title,
           id: this.props.editingNote.id,
           date: this.props.editingNote.date,
@@ -86,18 +86,18 @@ class NotesEdit extends React.Component {
         </div>
         {/* <hr /> */}
         <ReactQuill
-          name="body"
+          name="text"
           // theme="snow"
-          value={`${this.state.body}`}
-          onChange={this.updateBody}
+          value={`${this.state.text}`}
+          onChange={this.updateText}
         ></ReactQuill>
         {/* <p>Your note goes here...</p> */}
       </div>
     );
   }
-  updateBody = async (value) => {
-    await this.setState({ body: value });
-    console.log("update body called from edit");
+  updateText = async (value) => {
+    await this.setState({ text: value });
+    console.log("update text called from edit");
     this.update();
     console.log("after update function: notes-edit");
   };
@@ -113,7 +113,7 @@ class NotesEdit extends React.Component {
     this.state.id
       ? this.props.updateNote({
           id: this.state.id,
-          body: this.state.body,
+          text: this.state.text,
           title: this.state.title,
           date: this.state.date,
         })

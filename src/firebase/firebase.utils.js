@@ -12,7 +12,6 @@ var firebaseConfig = {
   appId: "1:317238611124:web:53d1c43654c1f6b3451be1",
   measurementId: "G-5LDEDZ0HGM",
 };
-// Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 // firebase.analytics();
 
@@ -51,23 +50,16 @@ export const getUserNotes = async (id) => {
     .doc(id)
     .collection("notes")
     .get();
-  //   await firestore
-  //     .collection("users")
-  //     .doc(id)
-  //     .collection("notes")
-  //     .onSnapshot((serverUpdate) => {
-  //       const snapshot = serverUpdate.docs.map((doc) => {
-  //         const data = doc.data();
-  //         console.log("data item: ", data);
-  //         data["id"] = doc.id;
-  //         return data;
-  //       });
-  //       console.log("snapshot:", snapshot);
-  //       return snapshot;
-  //     })
-  console.log("return:", snapshot);
-  //   return snapshot;
-  return snapshot.docs.map((doc) => doc.data());
+  //   console.log("snap exists? ", snapshot);
+  if (!snapshot.empty) {
+    var notesArray = snapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    return notesArray;
+  } else {
+    return [];
+  }
 };
 
 export const auth = firebase.auth();
