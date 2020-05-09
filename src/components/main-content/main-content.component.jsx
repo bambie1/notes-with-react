@@ -7,11 +7,14 @@ import TextField from "@material-ui/core/TextField";
 import NoteAddOutlinedIcon from "@material-ui/icons/NoteAddOutlined";
 import List from "@material-ui/core/List";
 import NotesEdit from "../notes-edit/notes-edit.component";
-import { compareArrays } from "../../helperFunctions";
-import { firestore } from "../../firebase/firebase.utils";
-// import "firebase/firestore";
+// import { compareArrays } from "../../helperFunctions";
+import {
+  firestore,
+  getUserNotes,
+  updateNote,
+  addNote,
+} from "../../firebase/firebase.utils";
 
-const today = new Date();
 class MainContent extends Component {
   constructor() {
     super();
@@ -31,16 +34,22 @@ class MainContent extends Component {
     this.handleSearch = this.handleSearch.bind(this);
   }
 
-  componentDidMount = () => {
-    this.setState({
-      notes: this.props.notes,
+  componentDidMount = async () => {
+    getUserNotes(this.props?.userID).then((res) => {
+      console.log("user docs: ", res);
+      this.setState({
+        notes: res ? res : [],
+      });
     });
   };
 
-  componentDidUpdate(prevProps) {
-    if (!compareArrays(this.props.notes, prevProps.notes)) {
-      this.setState({
-        notes: this.props.notes,
+  async componentDidUpdate(prevProps) {
+    if (this.props.userID !== prevProps?.userID) {
+      getUserNotes(this.props?.userID).then((res) => {
+        console.log("user docs: ", res);
+        this.setState({
+          notes: res ? res : [],
+        });
       });
     }
   }
@@ -56,29 +65,15 @@ class MainContent extends Component {
     });
   };
 
-  addNewNote = async () => {
-    console.log("add new note called");
-    var newItem = {
-      title: "New note",
-      text: "<p>Text goes here</p>",
-      date: today.toString(),
-    };
-    const newFromDB = await firestore.collection("notes").add({
-      title: newItem.title,
-      text: newItem.text,
-      date: newItem.date, //firebase.firestore.FieldValue.serverTimestamp(),
-    });
-    newItem.id = newFromDB.id;
-  };
-
   updateNote = (noteObj) => {
     console.log("update note called");
-    firestore.collection("notes").doc(noteObj.id).update({
-      title: noteObj.title,
-      text: noteObj.text,
-      date: today.toString(),
-      // timestamp: firebase.firestore.FieldValue.serverTimestamp()
-    });
+    updateNote(noteObj, this.props?.userID);
+  };
+
+  addNewNote = () => {
+    addNote(this.props?.userID);
+    // .then(res=>this.setState({
+    // }))
   };
 
   handleSearch = (e) => {
@@ -99,7 +94,6 @@ class MainContent extends Component {
 
   render() {
     console.log("note list state: ", this.state.notes);
-    console.log("note list props: ", this.props.notes);
     var filtNotes;
     const { notes, searchPhrase } = this.state;
     notes.length > 0

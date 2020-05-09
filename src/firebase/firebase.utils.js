@@ -62,6 +62,41 @@ export const getUserNotes = async (id) => {
   }
 };
 
+export const updateNote = async (noteObj, userID) => {
+  firestore
+    .collection("users")
+    .doc(userID)
+    .collection("notes")
+    .doc(noteObj.id)
+    .update({
+      title: noteObj.title,
+      text: noteObj.text,
+      date: new Date().toString(),
+      // timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    });
+};
+
+export const addNote = async (userID) => {
+  console.log("add new note called");
+
+  var newItem = {
+    title: "New note",
+    text: "<p>Text goes here</p>",
+    date: new Date().toString(),
+  };
+  const newFromDB = await firestore
+    .collection("users")
+    .doc(userID)
+    .collection("notes")
+    .add({
+      title: newItem.title,
+      text: newItem.text,
+      date: newItem.date, //firebase.firestore.FieldValue.serverTimestamp(),
+    });
+  newItem.id = newFromDB.id;
+  return newItem;
+};
+
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
