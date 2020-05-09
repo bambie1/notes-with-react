@@ -11,7 +11,7 @@ const HomePage = () => {
       </h3>
       <span>Keep your mind uncluttered, write it down</span>
       <Link className="logo-container" to="/signin">
-        <Button className="login-btn">LOGIN</Button>
+        <Button className="login-btn">Get started!</Button>
       </Link>
     </div>
   );

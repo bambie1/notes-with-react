@@ -1,9 +1,9 @@
 // @use '../../base';
 .header {
-  display: flex;
-  padding: 1vh;
-  margin: 0vh 0vw 0.3vh 67vw;
-  height: 2vh; //border: 1px solid #886c6c;
+  // display: flex;
+  // padding: 1vh;
+  // margin: 0vh 0vw 0.3vh 67vw;
+  // height: 2vh; //border: 1px solid #886c6c;
 
   .user-account-pic {
     padding-left: 1vw;
@@ -15,7 +15,7 @@
   }
 }
 @media only screen and (min-width: 768px) {
-  .header {
-    margin-left: 80vw;
-  }
+  // .header {
+  //   margin-left: 80vw;
+  // }
 }

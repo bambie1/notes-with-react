@@ -7,9 +7,9 @@ import TextField from "@material-ui/core/TextField";
 import NoteAddOutlinedIcon from "@material-ui/icons/NoteAddOutlined";
 import List from "@material-ui/core/List";
 import NotesEdit from "../notes-edit/notes-edit.component";
-// import { compareArrays } from "../../helperFunctions";
-import firebase from "firebase/app";
-import "firebase/firestore";
+import { compareArrays } from "../../helperFunctions";
+import { firestore } from "../../firebase/firebase.utils";
+// import "firebase/firestore";
 
 const today = new Date();
 class MainContent extends Component {
@@ -32,21 +32,29 @@ class MainContent extends Component {
   }
 
   componentDidMount = () => {
-    firebase
-      .firestore()
-      .collection("notes")
-      .onSnapshot((serverUpdate) => {
-        const fbNotes = serverUpdate.docs.map((doc) => {
-          const data = doc.data();
-          data["id"] = doc.id;
-          return data;
-        });
-        console.log(fbNotes);
-        this.setState({
-          notes: fbNotes,
-        });
-      });
+    // firestore.collection("notes").onSnapshot((serverUpdate) => {
+    //   const fbNotes = serverUpdate.docs.map((doc) => {
+    //     const data = doc.data();
+    //     data["id"] = doc.id;
+    //     return data;
+    //   });
+    //   console.log(fbNotes);
+    //   this.setState({
+    //     notes: fbNotes,
+    //   });
+    // });
+    this.setState({
+      notes: this.props.notes,
+    });
   };
+
+  componentDidUpdate(prevProps) {
+    if (!compareArrays(this.props.notes, prevProps.notes)) {
+      this.setState({
+        notes: this.props.notes,
+      });
+    }
+  }
 
   selectNote = (index) => {
     this.setState({ selectedNoteIndex: index, isNoteClicked: true });
@@ -66,7 +74,7 @@ class MainContent extends Component {
       body: "<p>Text goes here</p>",
       date: today.toString(),
     };
-    const newFromDB = await firebase.firestore().collection("notes").add({
+    const newFromDB = await firestore.collection("notes").add({
       title: newItem.title,
       body: newItem.body,
       date: newItem.date, //firebase.firestore.FieldValue.serverTimestamp(),
@@ -76,7 +84,7 @@ class MainContent extends Component {
 
   updateNote = (noteObj) => {
     console.log("update note called");
-    firebase.firestore().collection("notes").doc(noteObj.id).update({
+    firestore.collection("notes").doc(noteObj.id).update({
       title: noteObj.title,
       body: noteObj.body,
       date: today.toString(),
@@ -96,18 +104,18 @@ class MainContent extends Component {
     console.log("Note to delete: ", noteID);
     var result = window.confirm("Do you want to delete this note?");
     if (result) {
-      await firebase.firestore().collection("notes").doc(noteID).delete();
+      await firestore.collection("notes").doc(noteID).delete();
     }
   };
 
   render() {
-    // console.log("note list state: ", this.state.notes);
-    // console.log("note list props: ", this.props.notes);
+    console.log("note list state: ", this.state.notes);
+    console.log("note list props: ", this.props.notes);
     var filtNotes;
     const { notes, searchPhrase } = this.state;
     notes.length > 0
       ? (filtNotes = notes.filter((note) =>
-          note.body.toLowerCase().includes(searchPhrase.toLowerCase())
+          note.text.toLowerCase().includes(searchPhrase.toLowerCase())
         ))
       : (filtNotes = []);
 

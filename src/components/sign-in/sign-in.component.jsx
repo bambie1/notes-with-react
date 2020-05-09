@@ -10,6 +10,8 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import Button from "@material-ui/core/Button";
 
+import { signInWithGoogle } from "../../firebase/firebase.utils";
+
 class SignIn extends React.Component {
   constructor() {
     super();
@@ -71,7 +73,14 @@ class SignIn extends React.Component {
             required
           />
         </FormControl>
-        <Button className="sign-in-btn">Sign in with Google</Button>
+        <div className="btns-group">
+          <Button className="sign-in-btn" type="submit">
+            Sign in
+          </Button>
+          <Button className="sign-in-btn" onClick={signInWithGoogle}>
+            Sign in with Google
+          </Button>
+        </div>
       </div>
     );
   }

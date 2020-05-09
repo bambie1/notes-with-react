@@ -25,7 +25,7 @@ class NoteItem extends React.Component {
 
   render() {
     // console.log("index and id: ", this.props.index, this.props.fbID);
-    const { title, body, date } = this.props;
+    const { title, text, date } = this.props;
     return (
       <Fragment>
         <ListItem className={`note-container ${this.props.className}`}>
@@ -35,9 +35,9 @@ class NoteItem extends React.Component {
             </span>
 
             <p className="note-brief">
-              {body.length > 33
-                ? removeHTMLTags(body).substring(0, 33) + " ..."
-                : removeHTMLTags(body)}
+              {text.length > 33
+                ? removeHTMLTags(text).substring(0, 33) + " ..."
+                : removeHTMLTags(text)}
             </p>
             <p className="note-date">{date}</p>
           </div>
