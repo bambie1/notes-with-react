@@ -8,12 +8,7 @@ import NoteAddOutlinedIcon from "@material-ui/icons/NoteAddOutlined";
 import List from "@material-ui/core/List";
 import NotesEdit from "../notes-edit/notes-edit.component";
 // import { compareArrays } from "../../helperFunctions";
-import {
-  firestore,
-  getUserNotes,
-  updateNote,
-  addNote,
-} from "../../firebase/firebase.utils";
+import { firestore, updateNote, addNote } from "../../firebase/firebase.utils";
 
 class MainContent extends Component {
   constructor() {
@@ -32,27 +27,42 @@ class MainContent extends Component {
     this.deleteNote = this.deleteNote.bind(this);
     this.viewNotes = this.viewNotes.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.getUserNotes = this.getUserNotes.bind(this);
   }
 
   componentDidMount = async () => {
-    getUserNotes(this.props?.userID).then((res) => {
-      console.log("user docs: ", res);
-      this.setState({
-        notes: res ? res : [],
-      });
-    });
+    this.getUserNotes(this.props?.userID);
   };
 
   async componentDidUpdate(prevProps) {
     if (this.props.userID !== prevProps?.userID) {
-      getUserNotes(this.props?.userID).then((res) => {
-        console.log("user docs: ", res);
-        this.setState({
-          notes: res ? res : [],
-        });
-      });
+      this.getUserNotes(this.props?.userID);
     }
   }
+
+  getUserNotes = async (id) => {
+    if (!id) return;
+
+    await firestore
+      .collection("users")
+      .doc(id)
+      .collection("notes")
+      .onSnapshot((coll) => {
+        if (!coll.empty) {
+          var notesArray = coll.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+          this.setState({
+            notes: notesArray,
+          });
+        } else {
+          this.setState({
+            notes: [],
+          });
+        }
+      });
+  };
 
   selectNote = (index) => {
     this.setState({ selectedNoteIndex: index, isNoteClicked: true });
@@ -72,8 +82,6 @@ class MainContent extends Component {
 
   addNewNote = () => {
     addNote(this.props?.userID);
-    // .then(res=>this.setState({
-    // }))
   };
 
   handleSearch = (e) => {
@@ -81,19 +89,21 @@ class MainContent extends Component {
       searchPhrase: e.target.value,
       selectedNoteIndex: 0,
     });
-    // console.log("search bar:", e.target.value);
   };
 
   deleteNote = async (noteID) => {
-    console.log("Note to delete: ", noteID);
-    var result = window.confirm("Do you want to delete this note?");
-    if (result) {
-      await firestore.collection("notes").doc(noteID).delete();
+    if (window.confirm("Do you want to delete this note?")) {
+      await firestore
+        .collection("users")
+        .doc(this.props?.userID)
+        .collection("notes")
+        .doc(noteID)
+        .delete();
     }
   };
 
   render() {
-    console.log("note list state: ", this.state.notes);
+    // console.log("note list state: ", this.state.notes);
     var filtNotes;
     const { notes, searchPhrase } = this.state;
     notes.length > 0
@@ -126,7 +136,7 @@ class MainContent extends Component {
               className="add-note-icon"
               onClick={this.addNewNote}
               fontSize="large"
-              style={{ color: "#886c6c" }}
+              // style={{ color: "#886c6c" }}
               title="Add note"
             />
           </div>

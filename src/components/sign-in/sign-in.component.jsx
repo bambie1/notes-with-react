@@ -1,15 +1,9 @@
 import React from "react";
 import "./sign-in.styles.scss";
 import TextField from "@material-ui/core/TextField";
-import InputLabel from "@material-ui/core/InputLabel";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import IconButton from "@material-ui/core/IconButton";
-import FormControl from "@material-ui/core/FormControl";
-import Input from "@material-ui/core/Input";
-import Visibility from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import Button from "@material-ui/core/Button";
-
+import { Redirect } from "react-router-dom";
+import PasswordField from "../password/password.component";
 import { signInWithGoogle } from "../../firebase/firebase.utils";
 
 class SignIn extends React.Component {
@@ -19,67 +13,70 @@ class SignIn extends React.Component {
     this.state = {
       password: "",
       showPassword: false,
+      redirect: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
-    this.handleClickShowPassword = this.handleClickShowPassword.bind(this);
-    this.handleMouseDownPassword = this.handleMouseDownPassword.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange = (prop) => (event) => {
     this.setState({ [prop]: event.target.value });
   };
 
-  handleClickShowPassword = () => {
-    this.setState((prevState) => ({ showPassword: !prevState.showPassword }));
-  };
-
-  handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
-
+  async handleSubmit() {
+    var sign = await signInWithGoogle();
+    console.log("sign: ", sign);
+    if (sign) {
+      this.setState({
+        redirect: true,
+      });
+    }
+  }
   render() {
-    return (
+    // console.log("redir state: ", this.state.redirect);
+    return this.state.redirect ? (
+      <Redirect to="/notes" />
+    ) : (
       <div className="sign-in-form">
-        <TextField
-          label="E-mail"
-          id="email"
-          defaultValue=""
-          helperText="e.g. abc@gmail.com"
-          margin="normal"
-          required
-        />
-        <FormControl>
-          <InputLabel htmlFor="standard-adornment-password">
-            Password
-          </InputLabel>
-          <Input
-            id="standard-adornment-password"
-            type={this.state.showPassword ? "text" : "password"}
-            value={this.state.password}
-            onChange={this.handleChange("password")}
-            // helperText="Use hints to remember your password"
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={this.handleClickShowPassword}
-                  onMouseDown={this.handleMouseDownPassword}
-                >
-                  {this.state.showPassword ? <Visibility /> : <VisibilityOff />}
-                </IconButton>
-              </InputAdornment>
-            }
+        <h4 className="hr-text">
+          <span>Sign in with:</span>
+        </h4>
+        <div id="customBtn" className="google-login">
+          <Button className="sign-in-btn" onClick={this.handleSubmit}>
+            <img
+              src="https://img.icons8.com/plasticine/30/000000/google-logo.png"
+              alt="google"
+            />
+            <span className="buttonText">Google</span>
+          </Button>
+        </div>
+        <h4 className="hr-text">
+          <span>or</span>
+        </h4>
+        <div className="other-login">
+          <TextField
+            label="E-mail"
+            id="email"
+            defaultValue=""
+            helperText="e.g. abc@gmail.com"
+            margin="normal"
+            className="email-input"
             required
           />
-        </FormControl>
-        <div className="btns-group">
-          <Button className="sign-in-btn" type="submit">
-            Sign in
-          </Button>
-          <Button className="sign-in-btn" onClick={signInWithGoogle}>
-            Sign in with Google
-          </Button>
+          <PasswordField
+            className="password-input"
+            handleChange={this.handleChange}
+          />
+          <div className="btns-group">
+            <Button className="sign-in-btn" type="submit">
+              Sign in
+            </Button>
+          </div>
+          <p className="register-text">
+            Don't have an account? <a href="#j">Signup now </a>
+            <br /> (Don't worry, we won't <em>clutter</em> your inbox)
+          </p>
         </div>
       </div>
     );

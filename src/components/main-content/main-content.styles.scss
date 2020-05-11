@@ -1,6 +1,7 @@
 // @use '../../base';
+@import "../../base";
 .content {
-  border: 1px solid #886c6c;
+  border: 1px solid $primary;
   overflow: hidden;
   min-height: 101vh;
 }
@@ -9,7 +10,7 @@
   width: 100%;
 
   hr {
-    border-color: #886c6c;
+    border-color: $primary;
   }
 }
 
@@ -29,7 +30,7 @@
     padding-top: 2.2vh;
     width: 13%;
     cursor: pointer;
-    color: #886c6c;
+    color: $primary;
   }
 }
 
@@ -45,7 +46,7 @@
   }
   .notes-list {
     width: 33%;
-    border-right: 1px solid #886c6c;
+    border-right: 1px solid $primary;
     // margin-top: 31px;
   }
   // .section-head {

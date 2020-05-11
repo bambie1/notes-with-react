@@ -1,19 +1,26 @@
-// @use '../../base';
+@import "../../base";
 .header {
   // display: flex;
   // padding: 1vh;
   // margin: 0vh 0vw 0.3vh 67vw;
   // height: 2vh; //border: 1px solid #886c6c;
 
-  .user-account-pic {
-    padding-left: 1vw;
-    height: 2vh;
+  .tool-header {
+    justify-content: space-between !important;
   }
   .user-account-name {
     font-size: 0.8rem;
     // padding-top: 1.3vh;
   }
 }
+
+.app-header {
+  background-color: $header !important;
+  margin-bottom: 14px !important;
+}
+// .MuiToolBar-root {
+
+// }
 @media only screen and (min-width: 768px) {
   // .header {
   //   margin-left: 80vw;

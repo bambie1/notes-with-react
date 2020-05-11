@@ -17,6 +17,12 @@
     margin-top: 1vh;
   }
 }
+.sign-up-header {
+  margin: 0px;
+  text-align: center;
+  background: #aba0b4;
+  border-radius: 10px;
+}
 
 #customBtn {
   display: inline-block;
@@ -39,7 +45,9 @@
   width: 100% !important;
   margin-top: 0px !important;
 }
-
+.password-input {
+  margin-bottom: 17px !important;
+}
 .hr-text {
   width: 100%;
   text-align: center;
@@ -51,11 +59,6 @@
     background: $secondary;
     padding: 0 10px;
   }
-}
-
-.register-text {
-  font-size: 0.7rem;
-  text-align: center;
 }
 
 @media only screen and (min-width: 768px) {

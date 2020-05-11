@@ -2,7 +2,7 @@ import React from "react";
 import NotesPage from "./pages/notes-page/notes-page";
 import HomePage from "./pages/home-page/home-page";
 import SignInPage from "./pages/sign-in-page/sign-in-page";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import Header from "./components/header/header.component";
 
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
@@ -37,7 +37,6 @@ class App extends React.Component {
           currentUser: null,
         });
       }
-
       // console.log(userAuth);
     });
   };
@@ -46,7 +45,7 @@ class App extends React.Component {
     this.unsubscribeFromAuth();
   }
   render() {
-    console.log("current user: ", this.state.currentUser?.id);
+    console.log("current user: ", this.state.currentUser);
     return (
       <BrowserRouter>
         <Header currentUser={this.state.currentUser} />
@@ -58,11 +57,28 @@ class App extends React.Component {
               this.state.currentUser ? (
                 <NotesPage userID={this.state.currentUser.id} />
               ) : (
-                <NotesPage />
+                <Redirect
+                  to={{
+                    pathname: "/signin",
+                  }}
+                />
               )
             }
           />
-          <Route path="/signin" component={SignInPage} />
+          <Route
+            path="/signin"
+            render={() =>
+              this.state.currentUser ? (
+                <Redirect
+                  to={{
+                    pathname: "/notes",
+                  }}
+                />
+              ) : (
+                <SignInPage />
+              )
+            }
+          />
         </Switch>
       </BrowserRouter>
     );

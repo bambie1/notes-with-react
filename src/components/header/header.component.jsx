@@ -13,18 +13,22 @@ import { Link } from "react-router-dom";
 const Header = ({ currentUser }) => {
   return (
     <div className="header">
-      {/* <span className="user-account-name">User10005</span>
-      <img className="user-account-pic" src={profilePic} href="" alt="" /> */}
-      <AppBar position="static">
-        <Toolbar>
+      <AppBar className="app-header" position="static">
+        <Toolbar className="tool-header">
           {/* <IconButton edge="start" color="inherit" aria-label="menu">
             <MenuIcon />
           </IconButton> */}
           <Typography variant="h6">Notes</Typography>
           {currentUser ? (
-            <Button className="sign-in-out-btn" onClick={() => auth.signOut()}>
-              Log Out
-            </Button>
+            <div className="user-account-name">
+              <Button
+                className="sign-in-out-btn"
+                onClick={() => auth.signOut()}
+              >
+                Log Out
+              </Button>
+              <span>{currentUser.displayName}</span>
+            </div>
           ) : (
             <Link to="/signin">
               <Button className="sign-in-out-btn" color="inherit">

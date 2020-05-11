@@ -39,29 +39,6 @@ export const createUserProfileDocument = async (userAuth) => {
   return userRef;
 };
 
-export const getUserNotes = async (id) => {
-  if (!id) {
-    console.log("undefined id");
-    return;
-  }
-
-  const snapshot = await firestore
-    .collection("users")
-    .doc(id)
-    .collection("notes")
-    .get();
-  //   console.log("snap exists? ", snapshot);
-  if (!snapshot.empty) {
-    var notesArray = snapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
-    return notesArray;
-  } else {
-    return [];
-  }
-};
-
 export const updateNote = async (noteObj, userID) => {
   firestore
     .collection("users")
