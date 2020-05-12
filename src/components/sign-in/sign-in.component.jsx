@@ -43,7 +43,7 @@ class SignIn extends React.Component {
           <span>Sign in with:</span>
         </h4>
         <div id="customBtn" className="google-login">
-          <Button className="sign-in-btn" onClick={this.handleSubmit}>
+          <Button className="google-btn" onClick={this.handleSubmit}>
             <img
               src="https://img.icons8.com/plasticine/30/000000/google-logo.png"
               alt="google"
@@ -64,6 +64,9 @@ class SignIn extends React.Component {
             className="email-input"
             required
           />
+          {/* <InputLabel htmlFor="standard-adornment-password">
+            Password
+          </InputLabel> */}
           <PasswordField
             className="password-input"
             handleChange={this.handleChange}
@@ -74,7 +77,10 @@ class SignIn extends React.Component {
             </Button>
           </div>
           <p className="register-text">
-            Don't have an account? <a href="#j">Signup now </a>
+            Not a member?{" "}
+            <a href="#j" className="page-link">
+              Signup now{" "}
+            </a>
             <br /> (Don't worry, we won't <em>clutter</em> your inbox)
           </p>
         </div>

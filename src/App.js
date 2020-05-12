@@ -3,7 +3,7 @@ import NotesPage from "./pages/notes-page/notes-page";
 import HomePage from "./pages/home-page/home-page";
 import SignInPage from "./pages/sign-in-page/sign-in-page";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
-import Header from "./components/header/header.component";
+// import Header from "./components/header/header.component";
 
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 
@@ -48,14 +48,18 @@ class App extends React.Component {
     console.log("current user: ", this.state.currentUser);
     return (
       <BrowserRouter>
-        <Header currentUser={this.state.currentUser} />
+        {/* <Header currentUser={this.state.currentUser} /> */}
         <Switch>
-          <Route exact path="/" component={HomePage} />
+          <Route
+            exact
+            path="/"
+            render={() => <HomePage user={this.state.currentUser} />}
+          />
           <Route
             path="/notes"
             render={() =>
               this.state.currentUser ? (
-                <NotesPage userID={this.state.currentUser.id} />
+                <NotesPage user={this.state.currentUser} />
               ) : (
                 <Redirect
                   to={{

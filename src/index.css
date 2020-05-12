@@ -13,19 +13,18 @@ code {
 }
 
 #root {
-  /* background-color: #faf6dc; */
-  background-image: linear-gradient(
+  /* background-image: linear-gradient(
     to right,
     rgb(232, 203, 192),
     rgb(99, 111, 164)
-  );
+  ); */
   min-width: 107vw;
-  min-height: 108vh;
+  /* min-height: 108vh; */
 }
 
 @media only screen and (min-width: 768px) {
   #root {
-    min-width: 99vw;
-    min-height: 100vh;
+    min-width: 98vw;
+    /* min-height: 100vh; */
   }
 }

@@ -152,7 +152,7 @@ class MainContent extends Component {
                     className={
                       index === this.state.selectedNoteIndex
                         ? "selected-note"
-                        : ""
+                        : "unselected-note"
                     }
                     index={index}
                     fbID={id}

@@ -1,7 +1,45 @@
+@import "../../base";
+
 .home-page {
-  padding: 2vh;
+  padding: 0vh 0vh 2vh 0vh;
+  background-image: url("../../assets/retro_unsplash.jpg");
+  min-height: 103vh;
+  background-size: cover;
+  font-family: "Josefin Sans", sans-serif;
 
   .welcome-heading {
-    padding-top: 20vh;
+    font-size: 3rem;
+  }
+  .subtitle-header {
+    font-size: 1.3rem;
+  }
+
+  .page-content {
+    margin: auto;
+    text-align: center;
+    color: white;
+    margin-top: 40vh;
+    padding: 20px;
+    width: fit-content;
+  }
+
+  .logo-container {
+    text-decoration: none;
+
+    .login-btn {
+      background-color: $primary-main;
+      color: white;
+      margin-top: 6vh;
+
+      &:hover {
+        background-color: $primary-light;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .home-page {
+    min-height: 98vh;
   }
 }

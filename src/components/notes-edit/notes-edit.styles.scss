@@ -19,6 +19,14 @@
   .quill {
     height: 100%;
   }
+  .view-notes-button,
+  .delete-btn {
+    background-color: $primary-main;
+
+    &:hover {
+      background-color: $primary-light;
+    }
+  }
 }
 
 @media only screen and (min-width: 768px) {

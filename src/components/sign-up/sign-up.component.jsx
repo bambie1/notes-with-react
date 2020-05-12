@@ -4,7 +4,6 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { Redirect } from "react-router-dom";
 import PasswordField from "../password/password.component";
-import { signInWithGoogle } from "../../firebase/firebase.utils";
 
 class SignUp extends React.Component {
   constructor() {

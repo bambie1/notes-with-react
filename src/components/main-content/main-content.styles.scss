@@ -1,16 +1,20 @@
 // @use '../../base';
 @import "../../base";
 .content {
-  border: 1px solid $primary;
+  border: 1px solid $primary-main;
   overflow: hidden;
   min-height: 101vh;
+  width: 89%;
+  margin: auto;
+  background-color: #dfded1; //add to base
+  // opacity: 0.7;
 }
 
 .notes-list {
   width: 100%;
 
   hr {
-    border-color: $primary;
+    border: 0.2px solid $primary-main;
   }
 }
 
@@ -30,14 +34,14 @@
     padding-top: 2.2vh;
     width: 13%;
     cursor: pointer;
-    color: $primary;
+    color: $primary-main;
   }
 }
 
 @media only screen and (min-width: 768px) {
   .content {
     display: flex;
-    min-height: 90vh;
+    // min-height: 90vh;
   }
 
   .list-component-hide,
@@ -46,7 +50,7 @@
   }
   .notes-list {
     width: 33%;
-    border-right: 1px solid $primary;
+    border-right: 1px solid $primary-main;
     // margin-top: 31px;
   }
   // .section-head {

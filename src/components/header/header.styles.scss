@@ -1,26 +1,50 @@
 @import "../../base";
 .header {
-  // display: flex;
-  // padding: 1vh;
-  // margin: 0vh 0vw 0.3vh 67vw;
-  // height: 2vh; //border: 1px solid #886c6c;
-
+  .app-header {
+    background-color: inherit !important;
+    box-shadow: none !important;
+    // margin-bottom: 14px !important;
+  }
   .tool-header {
     justify-content: space-between !important;
+
+    .header-logo {
+      font-family: "Josefin Sans", sans-serif;
+    }
   }
-  .user-account-name {
+  .user-account {
     font-size: 0.8rem;
+    border-radius: 4px;
+    background-color: $primary-main;
+    padding: 0.5vw !important;
     // padding-top: 1.3vh;
+    &:hover {
+      background-color: $primary-light;
+    }
+    .user-name {
+      margin-left: 1vw;
+    }
+  }
+  .sign-in-out-btn {
+    border-color: $primary-main;
+    color: white;
+    background-color: $primary-main;
+
+    &:hover {
+      background-color: $primary-light;
+    }
+  }
+  .sign-in-link {
+    text-decoration: none;
   }
 }
-
-.app-header {
-  background-color: $header !important;
-  margin-bottom: 14px !important;
+.header-link {
+  text-decoration: none !important;
+  color: inherit !important;
 }
-// .MuiToolBar-root {
-
-// }
+.notes-props {
+  background: url("../../assets/cropped_retro_unsplash.jpg") !important;
+}
 @media only screen and (min-width: 768px) {
   // .header {
   //   margin-left: 80vw;

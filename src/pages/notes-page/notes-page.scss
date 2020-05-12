@@ -1,33 +1,41 @@
 @import "../../base";
 .notes-page {
   margin: auto;
-  width: 89%;
+  padding-top: 3vh;
+  // min-height: 89vh;
+  /* width: 89%; */
   padding-bottom: 5vh;
+  background-image: url("../../assets/cropped_retro_unsplash.jpg");
 }
-
+.notes-header {
+  background: url("../../assets/cropped_retro_unsplash.jpg");
+}
 .ql-editor {
   max-height: 100%;
   min-height: 72vh;
-  background-color: #c2bad29e;
+  background-color: $primary-e-light;
 }
 .ql-toolbar {
-  border-color: $primary !important;
+  border-color: $primary-main !important;
   border-left: 0px !important;
   border-right: 0px !important;
+  border-top: 0.3px solid $primary-main !important;
+  border-bottom: 0.3px solid $primary-main !important;
 }
 .ql-container {
   border: 0px !important;
 }
 
 .MuiOutlinedInput-notchedOutline {
-  border-color: rgba(0, 0, 0, 0.23);
+  // border-color: rgba(0, 0, 0, 0.23);
+  border-color: $primary-light;
 }
 
 .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
-  border-color: #6772a5 !important;
+  border-color: $primary-light !important;
   border-width: 2px;
 }
 
 .MuiFormLabel-root.Mui-focused {
-  color: #6772a5 !important;
+  color: $primary-light !important;
 }

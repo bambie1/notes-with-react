@@ -1,6 +1,8 @@
-import React from "react";
+import React, { Fragment } from "react";
 import "./notes-page.scss";
 import MainContent from "../../components/main-content/main-content.component";
+import Header from "../../components/header/header.component";
+
 // import { getUserNotes } from "../../firebase/firebase.utils";
 
 class NotesPage extends React.Component {
@@ -11,9 +13,12 @@ class NotesPage extends React.Component {
 
   render() {
     return (
-      <div className="notes-page">
-        <MainContent userID={this.props.userID} />
-      </div>
+      <Fragment>
+        <Header classProps="notes-props" currentUser={this.props.user} />
+        <div className="notes-page">
+          <MainContent userID={this.props.user.id} />
+        </div>
+      </Fragment>
     );
   }
 }

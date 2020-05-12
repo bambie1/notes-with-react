@@ -1,11 +1,20 @@
 @import "../../base";
 .sign-in-page {
-  padding: 2vh;
-  padding-top: 10vh;
+  min-height: 107vh;
+  padding: 0vh 2vh;
+  // padding-top: 18vh;
+  // background: linear-gradient(
+  //   198deg,
+  //   rgba(2, 0, 36, 1) 0%,
+  //   rgba(117, 163, 146, 1) 35%,
+  //   rgba(0, 212, 255, 1) 100%
+  // );
+  background-image: url("../../assets/retro_unsplash.jpg");
+  background-size: cover;
 }
 
 @media only screen and (min-width: 768px) {
-  // .sign-in-page {
-  //   padding-top: 15vh;
-  // }
+  .sign-in-page {
+    min-height: 100vh;
+  }
 }

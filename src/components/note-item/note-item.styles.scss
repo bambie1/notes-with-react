@@ -21,18 +21,18 @@
   padding-right: 5px;
   cursor: pointer;
 
-  &:hover {
-    opacity: 0.8;
-    background-color: #a39bb2;
+  &.unselected-note {
+    &:hover {
+      opacity: 0.8;
+      background-color: $primary-light;
+    }
   }
-
+  &.selected-note {
+    background-color: $primary-main;
+  }
   .deleteIcon {
     &:hover {
       color: red;
     }
   }
-}
-
-.selected-note {
-  background-color: #a39bb2;
 }
