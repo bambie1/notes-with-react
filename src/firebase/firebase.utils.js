@@ -23,20 +23,22 @@ export const createUserProfileDocument = async (userAuth) => {
   if (!snapShot.exists) {
     const { displayName, email } = userAuth;
     const createdAt = new Date();
-    var welcomeNote = {
-      title: "Welcome to Uncltr!",
-      text: `<p>We are excited that you've chosen <strong><em>UNCLTR</em></strong> to journal your genius thoughts!</p><p><br></p><p>Here's just a few things to know before you get started:</p><p><strong>Quick tips:</strong></p><ul><li>Your notes are safe and secure on your account, and you can access them from any platform (at <a href="www.uncltr.github.io" rel="noopener noreferrer" target="_blank">www.uncltr.github.io</a>)</li><li>Styles and formatting are saved as well</li><li>To create a new button, simply click on the "Add-note" icon in the notes column</li><li>Similarly, you can delete any note by clicking on the "trash can" icon beside it, or on the "Delete" button above the editor</li><li>You can also easily search for notes by the title, text or date of last edit by typing in the search bar</li><li><br></li><li>Finally, the world (this quill, really) is your oyster... go crazy!</li></ul><p><br></p><p><br></p><p><br></p><p><br></p><p>Got a really important note? Open the note info bar and press the 'Pin to top' button to pin it to the top of the list.</p><p><br></p>`,
-      date: new Date().toString(),
-    };
-    try {
-      await userRef.set({
-        displayName,
-        email,
-        createdAt,
-      });
-      addNote(userAuth.uid, welcomeNote);
-    } catch (e) {
-      console.log("error: ", e.message);
+    if (displayName) {
+      var welcomeNote = {
+        title: `Hi ${displayName}, welcome to Uncltr!`,
+        text: `<p>We are excited that you've chosen <strong><em>UNCLTR</em></strong> to journal your genius thoughts!</p><p><br></p><p>Here's just a few things to know before you get started:</p><p><strong>Quick tips:</strong></p><ul><li>Your notes are safe and secure on your account, and you can access them from any platform (at <a href="www.uncltr.github.io" rel="noopener noreferrer" target="_blank">www.uncltr.github.io</a>)</li><li>Styles and formatting are saved as well</li><li>To create a new button, simply click on the "Add-note" icon in the notes column</li><li>Similarly, you can delete any note by clicking on the "trash can" icon beside it, or on the "Delete" button above the editor</li><li>You can also easily search for notes by the title, text or date of last edit by typing in the search bar</li><li><br></li><li>Finally, the world (this quill, really) is your oyster... go crazy!</li></ul><p><br></p><p><br></p><p><br></p><p><br></p><p>Got a really important note? Open the note info bar and press the 'Pin to top' button to pin it to the top of the list.</p><p><br></p>`,
+        date: new Date().toString(),
+      };
+      try {
+        await userRef.set({
+          displayName,
+          email,
+          createdAt,
+        });
+        addNote(userAuth.uid, welcomeNote);
+      } catch (e) {
+        console.log("error: ", e.message);
+      }
     }
   } else {
   }

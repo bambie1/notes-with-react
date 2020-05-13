@@ -10,6 +10,10 @@
 
     .header-logo {
       font-family: "Josefin Sans", sans-serif;
+
+      &:hover {
+        color: $primary-main;
+      }
     }
   }
   .user-account {

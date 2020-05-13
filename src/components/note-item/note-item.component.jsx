@@ -26,6 +26,7 @@ class NoteItem extends React.Component {
   render() {
     // console.log("index and id: ", this.props.index, this.props.fbID);
     const { title, text, date } = this.props;
+    // console.log("to date fn: ", new Date(date));
     return (
       <Fragment>
         <ListItem className={`note-container ${this.props.className}`}>

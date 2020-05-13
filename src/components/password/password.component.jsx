@@ -23,7 +23,7 @@ class PasswordField extends React.Component {
   handleClickShowPassword() {
     this.setState((prevState) => ({ showPassword: !prevState.showPassword }));
   }
-
+  handleChange() {}
   handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
@@ -35,21 +35,21 @@ class PasswordField extends React.Component {
           id="standard-adornment-password"
           type={this.state.showPassword ? "text" : "password"}
           //   value={this.state.password}
-          //   onChange={this.props.handleChange("password")}
-          //   endAdornment={
-          //     <InputAdornment position="end">
-          //        <IconButton
-          //         aria-label="toggle password visibility"
-          //         onClick={this.handleClickShowPassword}
-          //         onMouseDown={this.handleMouseDownPassword}
-          //       >
-          //         {this.state.showPassword ? <Visibility /> : <VisibilityOff />}
-          //       </IconButton>
-          //     </InputAdornment>
-          //   }
+          onChange={this.props.handleChange("password")}
           required
         />
       </FormControl>
+      //   endAdornment={
+      //     <InputAdornment position="end">
+      //        <IconButton
+      //         aria-label="toggle password visibility"
+      //         onClick={this.handleClickShowPassword}
+      //         onMouseDown={this.handleMouseDownPassword}
+      //       >
+      //         {this.state.showPassword ? <Visibility /> : <VisibilityOff />}
+      //       </IconButton>
+      //     </InputAdornment>
+      //   }
     );
   }
 }

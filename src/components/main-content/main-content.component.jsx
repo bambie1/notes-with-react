@@ -103,17 +103,22 @@ class MainContent extends Component {
   };
 
   render() {
-    // console.log("note list state: ", this.state.notes);
     var filtNotes;
     const { notes, searchPhrase } = this.state;
-    notes.length > 0
-      ? (filtNotes = notes.filter(
-          (note) =>
-            note.text.toLowerCase().includes(searchPhrase.toLowerCase()) ||
-            note.title.toLowerCase().includes(searchPhrase.toLowerCase()) ||
-            note.date.toLowerCase().includes(searchPhrase.toLowerCase())
-        ))
-      : (filtNotes = []);
+    if (notes.length > 0) {
+      // notes.sort(function (a, b) {
+      //   return new Date(a.date) - new Date(b.date);
+      // });
+      // notes.reverse();
+      filtNotes = notes.filter(
+        (note) =>
+          note.text.toLowerCase().includes(searchPhrase.toLowerCase()) ||
+          note.title.toLowerCase().includes(searchPhrase.toLowerCase()) ||
+          note.date.toLowerCase().includes(searchPhrase.toLowerCase())
+      );
+    } else {
+      filtNotes = [];
+    }
 
     return (
       <div className="content">
