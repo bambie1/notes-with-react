@@ -64,6 +64,7 @@ class NotesEdit extends React.Component {
             // defaultValue={this.state.title}
             value={this.state.title}
             onChange={this.updateTitle}
+            onKeyDown={this.update}
           ></Input>
 
           <div className="notes-edit-controls">
@@ -90,6 +91,7 @@ class NotesEdit extends React.Component {
           // theme="snow"
           value={`${this.state.text}`}
           onChange={this.updateText}
+          onKeyDown={this.update}
         ></ReactQuill>
         {/* <p>Your note goes here...</p> */}
       </div>
@@ -98,14 +100,14 @@ class NotesEdit extends React.Component {
   updateText = async (value) => {
     await this.setState({ text: value });
     console.log("update text called from edit");
-    this.update();
+    // this.update();
     console.log("after update function: notes-edit");
   };
 
   updateTitle = async (e) => {
     const { name, value } = e.target;
     await this.setState({ [name]: value });
-    this.update();
+    // this.update();
   };
 
   update = debounce(() => {

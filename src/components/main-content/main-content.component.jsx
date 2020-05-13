@@ -15,7 +15,7 @@ class MainContent extends Component {
     super();
 
     this.state = {
-      selectedNoteIndex: null,
+      selectedNoteIndex: 0,
       notes: [],
       searchPhrase: "",
       isNoteClicked: false,
@@ -107,8 +107,11 @@ class MainContent extends Component {
     var filtNotes;
     const { notes, searchPhrase } = this.state;
     notes.length > 0
-      ? (filtNotes = notes.filter((note) =>
-          note.text.toLowerCase().includes(searchPhrase.toLowerCase())
+      ? (filtNotes = notes.filter(
+          (note) =>
+            note.text.toLowerCase().includes(searchPhrase.toLowerCase()) ||
+            note.title.toLowerCase().includes(searchPhrase.toLowerCase()) ||
+            note.date.toLowerCase().includes(searchPhrase.toLowerCase())
         ))
       : (filtNotes = []);
 
@@ -166,8 +169,8 @@ class MainContent extends Component {
             </Fragment>
           )}
         </div>
-        {/* {this.state.notes.length > 0 ? ( */}
-        {this.state.isNoteClicked ? (
+        {/* {this.state.isNoteClicked ? ( */}
+        {this.state.notes.length > 0 ? (
           <NotesEdit
             editingNote={filtNotes[this.state.selectedNoteIndex]}
             updateNote={this.updateNote}
