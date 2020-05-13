@@ -3,6 +3,7 @@ import ReactQuill from "react-quill";
 import Input from "@material-ui/core/Input";
 // import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import debounce from "../../helperFunctions";
 import "react-quill/dist/quill.snow.css"; // ES6
 import "./notes-edit.styles.scss";
@@ -20,6 +21,7 @@ class NotesEdit extends React.Component {
     this.updateTitle = this.updateTitle.bind(this);
     this.updateText = this.updateText.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleType = this.handleType.bind(this);
   }
 
   componentDidMount = () => {
@@ -54,7 +56,11 @@ class NotesEdit extends React.Component {
 
   render() {
     return (
-      <div className="notes-edit">
+      <div
+        className={`notes-edit ${
+          this.props.clicked ? "show-editor" : "hide-editor"
+        }`}
+      >
         <div className="notes-edit-header">
           <Input
             className="notes-edit-title"
@@ -64,7 +70,7 @@ class NotesEdit extends React.Component {
             // defaultValue={this.state.title}
             value={this.state.title}
             onChange={this.updateTitle}
-            onKeyDown={this.update}
+            onKeyDown={this.handleType}
           ></Input>
 
           <div className="notes-edit-controls">
@@ -73,11 +79,17 @@ class NotesEdit extends React.Component {
               onClick={() => {
                 this.props.viewNotes();
               }}
+              size="small"
             >
+              <ArrowBackIosIcon fontSize="small" />
               Notes
             </Button>
             {this.state.id ? (
-              <Button className="delete-btn" onClick={this.handleDelete}>
+              <Button
+                className="delete-btn"
+                onClick={this.handleDelete}
+                size="small"
+              >
                 Delete
               </Button>
             ) : (
@@ -91,7 +103,7 @@ class NotesEdit extends React.Component {
           // theme="snow"
           value={`${this.state.text}`}
           onChange={this.updateText}
-          onKeyDown={this.update}
+          onKeyDown={this.handleType}
         ></ReactQuill>
         {/* <p>Your note goes here...</p> */}
       </div>
@@ -108,6 +120,14 @@ class NotesEdit extends React.Component {
     const { name, value } = e.target;
     await this.setState({ [name]: value });
     // this.update();
+  };
+  handleType = (e) => {
+    if (
+      (e.keyCode >= 48 && e.keyCode <= 57) ||
+      (e.keyCode >= 65 && e.keyCode <= 90)
+    ) {
+      this.update();
+    }
   };
 
   update = debounce(() => {

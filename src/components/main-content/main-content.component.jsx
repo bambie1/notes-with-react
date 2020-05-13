@@ -176,6 +176,7 @@ class MainContent extends Component {
             updateNote={this.updateNote}
             deleteNote={this.deleteNote}
             viewNotes={this.viewNotes}
+            clicked={this.state.isNoteClicked}
           />
         ) : (
           ""

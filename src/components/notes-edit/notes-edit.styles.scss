@@ -2,6 +2,12 @@
 .notes-edit {
   width: 100%;
 
+  &.show-editor {
+    display: inline-block;
+  }
+  &.hide-editor {
+    display: none;
+  }
   .notes-edit-title {
     width: 100%;
     font-weight: bold;
@@ -14,6 +20,7 @@
   .notes-edit-controls {
     display: flex;
     justify-content: space-between;
+    padding: 2vh 0vh;
   }
 
   .quill {
@@ -37,7 +44,9 @@
     width: 67%;
     // padding-left: 10px;
     // padding-right: 10px;
-
+    &.hide-editor {
+      display: inline-block;
+    }
     .notes-edit-title {
       width: 70%;
       font-weight: bold;
@@ -52,7 +61,7 @@
       padding-left: 15px;
     }
     .notes-edit-controls {
-      padding-top: 15px;
+      padding: 15px 0px 0px 0px;
     }
   }
 }
