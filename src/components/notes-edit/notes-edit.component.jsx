@@ -4,7 +4,7 @@ import Input from "@material-ui/core/Input";
 // import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import debounce from "../../helperFunctions";
+// import debounce from "../../helperFunctions";
 import "react-quill/dist/quill.snow.css"; // ES6
 import "./notes-edit.styles.scss";
 
@@ -83,36 +83,23 @@ class NotesEdit extends React.Component {
               <ArrowBackIosIcon fontSize="small" />
               Notes
             </Button>
-            {/* {this.state.id ? (
-              <Button
-                className="delete-btn"
-                onClick={this.handleDelete}
-                size="small"
-              >
-                Delete
-              </Button>
-            ) : (
-              ""
-            )} */}
           </div>
         </div>
         {/* <hr /> */}
         <ReactQuill
           name="text"
-          // theme="snow"
           value={`${this.state.text}`}
           onChange={this.updateText}
           onKeyDown={this.handleType}
         ></ReactQuill>
-        {/* <p>Your note goes here...</p> */}
       </div>
     );
   }
   updateText = async (value) => {
     await this.setState({ text: value });
-    console.log("update text called from edit");
+    console.log("update text called from edit: ");
     // this.update();
-    console.log("after update function: notes-edit");
+    // console.log("after update function: notes-edit");
   };
 
   updateTitle = async (e) => {
@@ -120,16 +107,21 @@ class NotesEdit extends React.Component {
     await this.setState({ [name]: value });
     // this.update();
   };
-  handleType = (e) => {
+  handleType = async (e) => {
+    // console.log("event prop", e.target.name);
     if (
-      (e.keyCode >= 48 && e.keyCode <= 57) ||
-      (e.keyCode >= 65 && e.keyCode <= 90)
+      !(
+        (e.keyCode >= 13 && e.keyCode <= 27) ||
+        (e.keyCode >= 33 && e.keyCode <= 45) ||
+        (e.keyCode >= 91 && e.keyCode <= 93) ||
+        (e.keyCode >= 112 && e.keyCode <= 145)
+      )
     ) {
       this.update();
     }
   };
 
-  update = debounce(() => {
+  update = () => {
     console.log("Database update");
     this.state.id
       ? this.props.updateNote({
@@ -139,7 +131,7 @@ class NotesEdit extends React.Component {
           date: this.state.date,
         })
       : console.log("undefined");
-  }, 1500);
+  };
 }
 
 export default NotesEdit;

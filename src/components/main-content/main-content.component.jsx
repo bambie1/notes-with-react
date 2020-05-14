@@ -7,6 +7,7 @@ import TextField from "@material-ui/core/TextField";
 import NoteAddOutlinedIcon from "@material-ui/icons/NoteAddOutlined";
 import List from "@material-ui/core/List";
 import NotesEdit from "../notes-edit/notes-edit.component";
+import debounce from "../../helperFunctions";
 // import { compareArrays } from "../../helperFunctions";
 import { firestore, updateNote, addNote } from "../../firebase/firebase.utils";
 
@@ -79,7 +80,16 @@ class MainContent extends Component {
 
   updateNote = (noteObj) => {
     console.log("update note called");
-    updateNote(noteObj, this.props?.userID);
+    this.setState((prevState) => {
+      return {
+        notes: prevState.notes.map((note, index) => {
+          if (note.id === noteObj.id) return noteObj;
+          else return note;
+        }),
+      };
+    });
+
+    debounce(updateNote(noteObj, this.props?.userID), 1500);
   };
 
   addNewNote = async () => {
