@@ -29,12 +29,25 @@
 .MuiOutlinedInput-notchedOutline {
   border-color: $primary-light;
 }
+.MuiInput-underline:after {
+  border-bottom: 1px solid $primary-main !important;
+  // border-right: 1px solid $primary-main !important;
+}
+.MuiInput-underline::before {
+  // border-right: 1px solid grey !important;
 
+  &:hover {
+    border-color: $primary-light !important;
+  }
+}
 .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
   border-color: $primary-light !important;
-  border-width: 2px;
+  // border-width: 2px;
 }
 
 .MuiFormLabel-root.Mui-focused {
   color: $primary-light !important;
+}
+
+@media only screen and (min-width: 768px) {
 }

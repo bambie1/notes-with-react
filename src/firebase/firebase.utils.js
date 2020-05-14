@@ -56,7 +56,7 @@ export const updateNote = async (noteObj, userID) => {
       title: noteObj.title,
       text: noteObj.text,
       date: new Date().toString(),
-      // timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
 };
 
@@ -77,7 +77,8 @@ export const addNote = async (userID, noteObj) => {
     .add({
       title: newItem.title,
       text: newItem.text,
-      date: newItem.date, //firebase.firestore.FieldValue.serverTimestamp(),
+      date: newItem.date,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
   newItem.id = newFromDB.id;
   return newItem;

@@ -67,11 +67,10 @@ class NotesEdit extends React.Component {
             name="title"
             type="text"
             placeholder="Note title"
-            // defaultValue={this.state.title}
             value={this.state.title}
             onChange={this.updateTitle}
             onKeyDown={this.handleType}
-          ></Input>
+          />
 
           <div className="notes-edit-controls">
             <Button
@@ -84,7 +83,7 @@ class NotesEdit extends React.Component {
               <ArrowBackIosIcon fontSize="small" />
               Notes
             </Button>
-            {this.state.id ? (
+            {/* {this.state.id ? (
               <Button
                 className="delete-btn"
                 onClick={this.handleDelete}
@@ -94,7 +93,7 @@ class NotesEdit extends React.Component {
               </Button>
             ) : (
               ""
-            )}
+            )} */}
           </div>
         </div>
         {/* <hr /> */}

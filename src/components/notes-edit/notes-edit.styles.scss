@@ -47,6 +47,11 @@
     &.hide-editor {
       display: inline-block;
     }
+    // .notes-edit-header {
+    //   &:focus {
+    //     border-color: $primary-main !important;
+    //   }
+    // }
     .notes-edit-title {
       width: 70%;
       font-weight: bold;

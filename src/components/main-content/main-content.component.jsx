@@ -47,6 +47,7 @@ class MainContent extends Component {
       .collection("users")
       .doc(id)
       .collection("notes")
+      .orderBy("timestamp", "desc")
       .onSnapshot((coll) => {
         if (!coll.empty) {
           var notesArray = coll.docs.map((doc) => ({
@@ -80,8 +81,18 @@ class MainContent extends Component {
     updateNote(noteObj, this.props?.userID);
   };
 
-  addNewNote = () => {
-    addNote(this.props?.userID);
+  addNewNote = async () => {
+    addNote(this.props?.userID).then((p) => {
+      this.state.notes.map((note, index) => {
+        if (note.id === p.id) {
+          this.setState({
+            selectedNoteIndex: index,
+          });
+        }
+        return p.id;
+      });
+      // console.log("addnote return: ", p);
+    });
   };
 
   handleSearch = (e) => {
@@ -99,6 +110,22 @@ class MainContent extends Component {
         .collection("notes")
         .doc(noteID)
         .delete();
+    }
+    if (this.state.notes.length > 0) {
+      var { notes } = this.state;
+      this.setState((prevState) => {
+        if (prevState.selectedNoteIndex > notes.length) {
+          console.log("prev index:");
+          return {
+            selectedNoteIndex: notes.length - 1,
+            isNoteClicked: true,
+          };
+        }
+      });
+    } else {
+      this.setState({
+        isNoteClicked: false,
+      });
     }
   };
 
@@ -150,7 +177,13 @@ class MainContent extends Component {
           </div>
           <hr />
           {filtNotes.length < 1 ? (
-            <div>No notes to display</div>
+            <div id="emptyNotes" className="empty-divs">
+              <h2 className="empty-header">UNCLTR</h2>
+              <p className="empty-text">No notes to display </p>
+              <p>
+                Click the "add-note-icon" in the top-right corner to get started
+              </p>
+            </div>
           ) : (
             <Fragment>
               <List>
@@ -184,7 +217,10 @@ class MainContent extends Component {
             clicked={this.state.isNoteClicked}
           />
         ) : (
-          ""
+          <div id="empty-editor" className="empty-divs">
+            <h1>UNCLTR</h1>
+            <p>Click on a note to start editing</p>
+          </div>
         )}
       </div>
     );
