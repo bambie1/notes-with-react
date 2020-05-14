@@ -48,7 +48,8 @@ class MainContent extends Component {
       .doc(id)
       .collection("notes")
       .orderBy("timestamp", "desc")
-      .onSnapshot((coll) => {
+      .get()
+      .then((coll) => {
         if (!coll.empty) {
           var notesArray = coll.docs.map((doc) => ({
             id: doc.id,
@@ -82,16 +83,12 @@ class MainContent extends Component {
   };
 
   addNewNote = async () => {
-    addNote(this.props?.userID).then((p) => {
-      this.state.notes.map((note, index) => {
-        if (note.id === p.id) {
-          this.setState({
-            selectedNoteIndex: index,
-          });
-        }
-        return p.id;
-      });
-      // console.log("addnote return: ", p);
+    addNote(this.props?.userID).then((newNote) => {
+      // console.log("new note: ", newNote);
+      this.setState((prevState) => ({
+        notes: [newNote, ...prevState.notes],
+        selectedNoteIndex: 0,
+      }));
     });
   };
 
@@ -110,22 +107,28 @@ class MainContent extends Component {
         .collection("notes")
         .doc(noteID)
         .delete();
-    }
-    if (this.state.notes.length > 0) {
+
       var { notes } = this.state;
+      // notes.
       this.setState((prevState) => {
-        if (prevState.selectedNoteIndex > notes.length) {
-          console.log("prev index:");
+        return { notes: prevState.notes.filter((note) => note.id !== noteID) };
+      });
+
+      if (notes.length > 0) {
+        this.setState((prevState) => {
           return {
-            selectedNoteIndex: notes.length - 1,
-            isNoteClicked: true,
+            selectedNoteIndex:
+              prevState.selectedNoteIndex === 0
+                ? 0
+                : prevState.selectedNoteIndex - 1,
+            // isNoteClicked: true,
           };
-        }
-      });
-    } else {
-      this.setState({
-        isNoteClicked: false,
-      });
+        });
+      } else {
+        this.setState({
+          isNoteClicked: false,
+        });
+      }
     }
   };
 
