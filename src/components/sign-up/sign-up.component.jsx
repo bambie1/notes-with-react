@@ -11,6 +11,7 @@ class SignUp extends React.Component {
   constructor() {
     super();
 
+    this._ismounted = false;
     this.state = {
       password: "",
       displayName: "",
@@ -23,6 +24,13 @@ class SignUp extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidMount() {
+    this._ismounted = true;
+  }
+
+  componentWillUnmount() {
+    this._ismounted = false;
+  }
   handleChange = (event) => {
     const { name, value } = event.target;
     this.setState({ [name]: value });

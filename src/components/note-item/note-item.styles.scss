@@ -13,14 +13,20 @@
     font-size: 10px;
   }
 }
-
+.dragged-note {
+  background: blue;
+}
 .note-container {
   justify-content: space-between !important;
   // margin-top: 31px;
-  padding-left: 10px;
+  padding-left: 0px !important;
   padding-right: 5px;
+  background-color: $note-main;
   cursor: pointer;
 
+  .drag-handle {
+    padding-right: 0.5vw;
+  }
   &.unselected-note {
     &:hover {
       opacity: 0.8;

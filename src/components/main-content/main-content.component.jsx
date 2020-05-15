@@ -8,6 +8,7 @@ import NoteAddOutlinedIcon from "@material-ui/icons/NoteAddOutlined";
 import List from "@material-ui/core/List";
 import NotesEdit from "../notes-edit/notes-edit.component";
 import debounce from "../../helperFunctions";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 // import { compareArrays } from "../../helperFunctions";
 import { firestore, updateNote, addNote } from "../../firebase/firebase.utils";
 
@@ -29,6 +30,7 @@ class MainContent extends Component {
     this.viewNotes = this.viewNotes.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.getUserNotes = this.getUserNotes.bind(this);
+    this.onDragEnd = this.onDragEnd.bind(this);
   }
 
   componentDidMount = async () => {
@@ -142,6 +144,32 @@ class MainContent extends Component {
     }
   };
 
+  onDragEnd = (result) => {
+    const { destination, source, draggableId } = result;
+    if (!destination) {
+      return;
+    }
+    if (
+      destination.draggableId === source.draggableId &&
+      destination.index === source.index
+    ) {
+      return;
+    }
+    // console.log("drag result: ", destination, source, draggableId);
+
+    const newNotes = this.state.notes;
+    console.log("newNotes before change ", newNotes);
+    const movedNote = newNotes.find((note) => note.id === draggableId);
+    console.log("moved note: ", movedNote);
+    newNotes.splice(source.index, 1);
+    newNotes.splice(destination.index, 0, movedNote);
+    console.log("newNotes state: ", newNotes);
+    this.setState({
+      notes: newNotes,
+      selectedNoteIndex: destination.index,
+    });
+  };
+
   render() {
     var filtNotes;
     const { notes, searchPhrase } = this.state;
@@ -161,81 +189,92 @@ class MainContent extends Component {
     }
 
     return (
-      <div className="content">
-        <div
-          className={
-            this.state.isNoteClicked
-              ? "list-component-hide notes-list"
-              : "list-component-show notes-list"
-          }
-        >
-          <div className="section-head">
-            {/* <Button onClick={this.props.addNewNote}>Add note</Button> */}
-            <TextField
-              onChange={this.handleSearch}
-              className="notes-search-bar"
-              label="Search notes"
-              type="search"
-              variant="outlined"
-              size="small"
-              fullWidth
-            />
-            <NoteAddOutlinedIcon
-              className="add-note-icon"
-              onClick={this.addNewNote}
-              fontSize="large"
-              // style={{ color: "#886c6c" }}
-              title="Add note"
-            />
-          </div>
-          <hr />
-          {filtNotes.length < 1 ? (
-            <div id="emptyNotes" className="empty-divs">
-              <h2 className="empty-header">UNCLTR</h2>
-              <p className="empty-text">No notes to display </p>
-              <p>
-                Click the "add-note-icon" in the top-right corner to get started
-              </p>
+      <DragDropContext onDragEnd={this.onDragEnd}>
+        <div className="content">
+          <div
+            className={
+              this.state.isNoteClicked
+                ? "list-component-hide notes-list"
+                : "list-component-show notes-list"
+            }
+          >
+            <div className="section-head">
+              {/* <Button onClick={this.props.addNewNote}>Add note</Button> */}
+              <TextField
+                onChange={this.handleSearch}
+                className="notes-search-bar"
+                label="Search notes"
+                type="search"
+                variant="outlined"
+                size="small"
+                fullWidth
+              />
+              <NoteAddOutlinedIcon
+                className="add-note-icon"
+                onClick={this.addNewNote}
+                fontSize="large"
+                // style={{ color: "#886c6c" }}
+                title="Add note"
+              />
             </div>
+            <hr />
+            {filtNotes.length < 1 ? (
+              <div id="emptyNotes" className="empty-divs">
+                <h2 className="empty-header">UNCLTR</h2>
+                <p className="empty-text">No notes to display </p>
+                <p>
+                  Click the "add-note-icon" in the top-right corner to get
+                  started
+                </p>
+              </div>
+            ) : (
+              <Fragment>
+                <Droppable droppableId="droppable">
+                  {(provided) => (
+                    <List
+                      innerRef={provided.innerRef}
+                      {...provided.droppableProps}
+                    >
+                      {filtNotes.map(({ id, ...otherProps }, index) => (
+                        <NoteItem
+                          key={id}
+                          className={
+                            index === this.state.selectedNoteIndex
+                              ? "selected-note"
+                              : "unselected-note"
+                          }
+                          index={index}
+                          fbID={id}
+                          deleteNote={this.deleteNote}
+                          onClick={() => this.selectNote(index)}
+                          {...otherProps}
+                        />
+                      ))}
+                      {provided.placeholder}
+                    </List>
+                  )}
+                </Droppable>
+                {/* <hr /> */}
+              </Fragment>
+            )}
+          </div>
+          {/* {this.state.isNoteClicked ? ( */}
+          {this.state.notes.length > 0 ? (
+            <NotesEdit
+              editingNote={filtNotes[this.state.selectedNoteIndex]}
+              updateNote={this.updateNote}
+              deleteNote={this.deleteNote}
+              viewNotes={this.viewNotes}
+              clicked={this.state.isNoteClicked}
+            />
           ) : (
-            <Fragment>
-              <List>
-                {filtNotes.map(({ id, ...otherProps }, index) => (
-                  <NoteItem
-                    key={id}
-                    className={
-                      index === this.state.selectedNoteIndex
-                        ? "selected-note"
-                        : "unselected-note"
-                    }
-                    index={index}
-                    fbID={id}
-                    deleteNote={this.deleteNote}
-                    onClick={() => this.selectNote(index)}
-                    {...otherProps}
-                  />
-                ))}
-              </List>
-              {/* <hr /> */}
-            </Fragment>
+            <div id="empty-editor" className="empty-divs">
+              <h1>UNCLTR</h1>
+              <p>Click on a note to start editing</p>
+            </div>
           )}
         </div>
-        {/* {this.state.isNoteClicked ? ( */}
-        {this.state.notes.length > 0 ? (
-          <NotesEdit
-            editingNote={filtNotes[this.state.selectedNoteIndex]}
-            updateNote={this.updateNote}
-            deleteNote={this.deleteNote}
-            viewNotes={this.viewNotes}
-            clicked={this.state.isNoteClicked}
-          />
-        ) : (
-          <div id="empty-editor" className="empty-divs">
-            <h1>UNCLTR</h1>
-            <p>Click on a note to start editing</p>
-          </div>
-        )}
-      </div>
+      </DragDropContext>
     );
   }
 }
