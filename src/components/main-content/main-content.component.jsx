@@ -196,7 +196,7 @@ class MainContent extends Component {
   render() {
     var filtNotes;
     const { notes, searchPhrase } = this.state;
-    // console.log("state notes: ", notes);
+    console.log("state notes: ", notes);
     if (notes.length > 0) {
       notes.sort(function (a, b) {
         return a.orderNum - b.orderNum;

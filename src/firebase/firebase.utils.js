@@ -3,14 +3,14 @@ import "firebase/firestore";
 import "firebase/auth";
 
 var firebaseConfig = {
-  apiKey: "AIzaSyDKtz40DHZLniYCcBfWg3_fBLGxget5y1M",
-  authDomain: "react-notes-b2f44.firebaseapp.com",
-  databaseURL: "https://react-notes-b2f44.firebaseio.com",
-  projectId: "react-notes-b2f44",
-  storageBucket: "react-notes-b2f44.appspot.com",
-  messagingSenderId: "317238611124",
-  appId: "1:317238611124:web:53d1c43654c1f6b3451be1",
-  measurementId: "G-5LDEDZ0HGM",
+  apiKey: "AIzaSyA6eGHKD4HoWcgZQ59_nyx16h1Uvk_tous",
+  authDomain: "uncltr-notes.firebaseapp.com",
+  databaseURL: "https://uncltr-notes.firebaseio.com",
+  projectId: "uncltr-notes",
+  storageBucket: "uncltr-notes.appspot.com",
+  messagingSenderId: "935252998639",
+  appId: "1:935252998639:web:f16cf411d995e75fbc5e1a",
+  measurementId: "G-T1TEP2XGG6",
 };
 firebase.initializeApp(firebaseConfig);
 // firebase.analytics();
@@ -26,8 +26,9 @@ export const createUserProfileDocument = async (userAuth) => {
     if (displayName) {
       var welcomeNote = {
         title: `Hi ${displayName}, welcome to Uncltr!`,
-        text: `<p>We are excited that you've chosen <strong><em>UNCLTR</em></strong> to journal your genius thoughts!</p><p><br></p><p>Here's just a few things to know before you get started:</p><p><strong>Quick tips:</strong></p><ul><li>Your notes are safe and secure on your account, and you can access them from any platform (at <a href="www.uncltr.github.io" rel="noopener noreferrer" target="_blank">www.uncltr.github.io</a>)</li><li>Styles and formatting are saved as well</li><li>To create a new button, simply click on the "Add-note" icon in the notes column</li><li>Similarly, you can delete any note by clicking on the "trash can" icon beside it, or on the "Delete" button above the editor</li><li>You can also easily search for notes by the title, text or date of last edit by typing in the search bar</li><li><br></li><li>Finally, the world (this quill, really) is your oyster... go crazy!</li></ul><p><br></p><p><br></p><p><br></p><p><br></p><p>Got a really important note? Open the note info bar and press the 'Pin to top' button to pin it to the top of the list.</p><p><br></p>`,
+        text: `<p>We are excited that you've chosen <strong><em>UNCLTR</em></strong> to journal your genius thoughts!</p><p><br></p><p>Here's just a few things to know before you get started:</p><p><strong>Quick tips:</strong></p><p><br></p><ul><li>Your notes are safe and secure on your account, and you can access them from any platform (at <a href="https://uncltr-notes.web.app/" rel="noopener noreferrer" target="_blank"><strong><em>uncltr-notes.web.app</em></strong></a>)</li><li>Styles and formatting are saved as well</li><li>To create a new button, simply click on the "Add-note" icon in the notes column</li><li>Similarly, you can delete any note by clicking on the "trash can" icon beside it</li><li>You can also easily search for notes by the title, text or date of last edit by typing in the search bar</li><li>Finally, the world (this quill, really) is your oyster... go crazy!</li></ul><p><br></p>`,
         date: new Date().toString(),
+        orderNum: 20.2,
       };
       try {
         await userRef.set({
@@ -35,7 +36,7 @@ export const createUserProfileDocument = async (userAuth) => {
           email,
           createdAt,
         });
-        addNote(userAuth.uid, 10.1, welcomeNote); //first note on each account has an order number of 5.05
+        await addNote(userAuth.uid, 20.2, welcomeNote); //first note on each account has an order number of 5.05
       } catch (e) {
         console.log("error: ", e.message);
       }
@@ -64,6 +65,7 @@ export const updateNote = async (noteObj, userID) => {
 export const addNote = async (userID, orderNum, noteObj) => {
   console.log("add new note called");
   var newItem;
+  console.log("note obj add: ", noteObj);
   noteObj
     ? (newItem = noteObj)
     : (newItem = {

@@ -3,12 +3,13 @@
 .home-page {
   padding: 0vh 0vh 2vh 0vh;
   background-image: url("../../assets/retro_unsplash.jpg");
-  min-height: 105vh;
+  // min-height: 105vh;
+  min-height: 98vh;
   background-size: cover;
   font-family: "Josefin Sans", sans-serif;
 
   .welcome-heading {
-    font-size: 3rem;
+    font-size: 2.7rem;
   }
   .subtitle-header {
     font-size: 1.3rem;
@@ -18,7 +19,7 @@
     margin: auto;
     text-align: center;
     color: white;
-    margin-top: 33vh;
+    margin-top: 18vh;
     padding: 20px;
     width: fit-content;
   }
@@ -41,5 +42,12 @@
 @media only screen and (min-width: 768px) {
   .home-page {
     min-height: 98vh;
+
+    .welcome-heading {
+      font-size: 3rem;
+    }
+    .page-content {
+      margin-top: 33vh;
+    }
   }
 }

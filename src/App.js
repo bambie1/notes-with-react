@@ -73,11 +73,12 @@ class App extends React.Component {
             path="/signin"
             render={() =>
               this.state.currentUser ? (
-                <Redirect
-                  to={{
-                    pathname: "/notes",
-                  }}
-                />
+                // <Redirect
+                //   to={{
+                //     pathname: "/notes",
+                //   }}
+                // />
+                <SignInPage user={this.state.currentUser} />
               ) : (
                 <SignInPage />
               )

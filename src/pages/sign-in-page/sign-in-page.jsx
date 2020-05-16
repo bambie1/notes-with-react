@@ -15,7 +15,7 @@ class SignInPage extends React.Component {
   render() {
     return (
       <div className="sign-in-page">
-        <Header />
+        <Header currentUser={this.props.user} />
         {this.state.showSignUp ? (
           <SignUp clicked={() => this.setState({ showSignUp: false })} />
         ) : (

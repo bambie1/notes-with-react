@@ -48,12 +48,13 @@ class SignUp extends React.Component {
       alert("Please fill out the required fields");
       return;
     }
+
     try {
       const { user } = await auth.createUserWithEmailAndPassword(
         email,
         password
       );
-      //   console.log("user, ", user);
+      console.log("user created: ", user);
       await createUserProfileDocument({
         uid: user.uid,
         email: user.email,
@@ -66,6 +67,15 @@ class SignUp extends React.Component {
         confirmPassword: "",
         redirect: true,
       });
+
+      // window.location = "/notes";
+      // this.setState({
+      //   password: "",
+      //   displayName: "",
+      //   email: "",
+      //   confirmPassword: "",
+      //   redirect: true,
+      // });
     } catch (e) {
       console.log("error: ", e);
       if (e.code === "auth/weak-password")
@@ -76,14 +86,7 @@ class SignUp extends React.Component {
         alert(
           "Account already exists, please sign-in or use a different email address"
         );
-
-      //,
     }
-    // if (sign) {
-    //   this.setState({
-    //     redirect: true,
-    //   });
-    // }
   }
   render() {
     // console.log("redir state: ", this.state.redirect);

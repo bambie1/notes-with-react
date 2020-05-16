@@ -8,7 +8,7 @@
   width: 69%;
   background-color: $contrast-e-light;
   border-color: $contrast-e-light;
-  margin: 10vh auto 0vh auto;
+  margin: 5vh auto 0vh auto;
 
   .sign-in-btn {
     margin: auto !important;
@@ -79,5 +79,6 @@
     width: 22%;
     // padding: 5vh;
     border-radius: 17px;
+    margin: 10vh auto 0vh auto;
   }
 }

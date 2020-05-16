@@ -1,13 +1,13 @@
 @import "../../base";
 .sign-in-page {
-  min-height: 107vh;
+  min-height: 100vh;
   padding: 0vh 2vh;
   background-image: url("../../assets/retro_unsplash.jpg");
   background-size: cover;
 }
 
-@media only screen and (min-width: 768px) {
-  .sign-in-page {
-    min-height: 100vh;
-  }
-}
+// @media only screen and (min-width: 768px) {
+//   .sign-in-page {
+//     min-height: 100vh;
+//   }
+// }

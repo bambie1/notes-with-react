@@ -12,15 +12,15 @@ code {
     monospace;
 }
 
-#root {
-  /* background-image: linear-gradient(
+/* #root { */
+/* background-image: linear-gradient(
     to right,
     rgb(232, 203, 192),
     rgb(99, 111, 164)
   ); */
-  min-width: 107vw;
-  /* min-height: 108vh; */
-}
+/* min-width: 107vw; */
+/* min-height: 108vh; */
+/* } */
 
 @media only screen and (min-width: 768px) {
   #root {

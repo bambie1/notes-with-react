@@ -8,7 +8,7 @@
   width: 69%;
   background-color: $contrast-e-light;
   border-color: $contrast-e-light;
-  margin: 10vh auto 0vh auto;
+  margin: 5vh auto 0vh auto;
 
   .previous-link {
     cursor: pointer;
@@ -61,7 +61,7 @@
 @media only screen and (min-width: 768px) {
   .sign-up-form {
     width: 22%;
-    // margin: auto;
+    margin: 10vh auto 0vh auto;
     padding: 5vh;
     border-radius: 17px;
   }
