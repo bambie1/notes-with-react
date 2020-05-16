@@ -49,15 +49,16 @@ class MainContent extends Component {
     await firestore
       .collection("users")
       .doc(id)
-      .collection("notes")
-      .orderBy("timestamp", "desc")
+      .collection("notes") // .orderBy("timestamp", "desc")
       .get()
       .then((coll) => {
         if (!coll.empty) {
+          // console.log("get collection: ", coll.docs);
           var notesArray = coll.docs.map((doc) => ({
             id: doc.id,
             ...doc.data(),
           }));
+          console.log("notes coll array: ", notesArray);
           this.setState({
             notes: notesArray,
           });
@@ -81,7 +82,7 @@ class MainContent extends Component {
   };
 
   updateNote = (noteObj) => {
-    console.log("update note called");
+    // console.log("update note called");
     this.setState((prevState) => {
       return {
         notes: prevState.notes.map((note, index) => {
@@ -95,13 +96,16 @@ class MainContent extends Component {
   };
 
   addNewNote = async () => {
-    addNote(this.props?.userID).then((newNote) => {
-      // console.log("new note: ", newNote);
-      this.setState((prevState) => ({
-        notes: [newNote, ...prevState.notes],
-        selectedNoteIndex: 0,
-      }));
-    });
+    // console.log("order num: ", this.state.notes[0]);
+    addNote(this.props?.userID, this.state.notes[0]?.orderNum || 20.5).then(
+      (newNote) => {
+        // console.log("new note: ", newNote);
+        this.setState((prevState) => ({
+          notes: [newNote, ...prevState.notes],
+          selectedNoteIndex: 0,
+        }));
+      }
+    );
   };
 
   handleSearch = (e) => {
@@ -160,10 +164,29 @@ class MainContent extends Component {
     const newNotes = this.state.notes;
     console.log("newNotes before change ", newNotes);
     const movedNote = newNotes.find((note) => note.id === draggableId);
+    console.log("dest note: ", newNotes[destination.index]);
     console.log("moved note: ", movedNote);
+    if (destination.index === newNotes.length - 1) {
+      movedNote.orderNum = (newNotes[destination.index].orderNum + 30.5) / 2;
+    } else if (destination.index === 0) {
+      movedNote.orderNum = newNotes[destination.index].orderNum / 2;
+    } else {
+      if (source.index > destination.index) {
+        movedNote.orderNum =
+          (newNotes[destination.index].orderNum +
+            newNotes[destination.index - 1].orderNum) /
+          2;
+      } else {
+        movedNote.orderNum =
+          (newNotes[destination.index].orderNum +
+            newNotes[destination.index + 1].orderNum) /
+          2;
+      }
+    }
     newNotes.splice(source.index, 1);
     newNotes.splice(destination.index, 0, movedNote);
     console.log("newNotes state: ", newNotes);
+    newNotes.map((note) => updateNote(note, this.props?.userID));
     this.setState({
       notes: newNotes,
       selectedNoteIndex: destination.index,
@@ -173,10 +196,11 @@ class MainContent extends Component {
   render() {
     var filtNotes;
     const { notes, searchPhrase } = this.state;
+    // console.log("state notes: ", notes);
     if (notes.length > 0) {
-      // notes.sort(function (a, b) {
-      //   return new Date(a.date) - new Date(b.date);
-      // });
+      notes.sort(function (a, b) {
+        return a.orderNum - b.orderNum;
+      });
       // notes.reverse();
       filtNotes = notes.filter(
         (note) =>

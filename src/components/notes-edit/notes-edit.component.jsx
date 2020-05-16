@@ -17,6 +17,7 @@ class NotesEdit extends React.Component {
       id: "",
       title: "",
       date: "",
+      orderNum: "",
     };
     this.updateTitle = this.updateTitle.bind(this);
     this.updateText = this.updateText.bind(this);
@@ -30,10 +31,11 @@ class NotesEdit extends React.Component {
       title: this.props.editingNote?.title,
       id: this.props.editingNote?.id,
       date: this.props.editingNote?.date,
+      orderNum: this.props.editingNote?.orderNum,
     });
   };
   componentDidUpdate = (prevProps) => {
-    console.log("edit did update");
+    // console.log("edit did update");
     if (this.props.editingNote) {
       if (
         this.props.editingNote.id !== prevProps.editingNote?.id ||
@@ -44,6 +46,7 @@ class NotesEdit extends React.Component {
           title: this.props.editingNote.title,
           id: this.props.editingNote.id,
           date: this.props.editingNote.date,
+          orderNum: this.props.editingNote.orderNum,
         });
       }
     }
@@ -97,15 +100,15 @@ class NotesEdit extends React.Component {
   }
   updateText = async (value) => {
     await this.setState({ text: value });
-    console.log("update text called from edit: ");
-    // this.update();
+    // console.log("update text called from edit: ");
+    this.update();
     // console.log("after update function: notes-edit");
   };
 
   updateTitle = async (e) => {
     const { name, value } = e.target;
     await this.setState({ [name]: value });
-    // this.update();
+    this.update();
   };
   handleType = async (e) => {
     // console.log("event prop", e.target.name);
@@ -122,13 +125,14 @@ class NotesEdit extends React.Component {
   };
 
   update = () => {
-    console.log("Database update");
+    // console.log("Database update");
     this.state.id
       ? this.props.updateNote({
           id: this.state.id,
           text: this.state.text,
           title: this.state.title,
           date: this.state.date,
+          orderNum: this.state.orderNum,
         })
       : console.log("undefined");
   };

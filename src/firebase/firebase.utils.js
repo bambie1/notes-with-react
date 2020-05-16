@@ -35,7 +35,7 @@ export const createUserProfileDocument = async (userAuth) => {
           email,
           createdAt,
         });
-        addNote(userAuth.uid, welcomeNote);
+        addNote(userAuth.uid, 10.1, welcomeNote); //first note on each account has an order number of 5.05
       } catch (e) {
         console.log("error: ", e.message);
       }
@@ -56,11 +56,12 @@ export const updateNote = async (noteObj, userID) => {
       title: noteObj.title,
       text: noteObj.text,
       date: new Date().toString(),
+      orderNum: noteObj.orderNum,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
 };
 
-export const addNote = async (userID, noteObj) => {
+export const addNote = async (userID, orderNum, noteObj) => {
   console.log("add new note called");
   var newItem;
   noteObj
@@ -69,6 +70,7 @@ export const addNote = async (userID, noteObj) => {
         title: "New note",
         text: "<p>Text goes here</p>",
         date: new Date().toString(),
+        orderNum: orderNum / 2,
       });
   const newFromDB = await firestore
     .collection("users")
@@ -78,6 +80,7 @@ export const addNote = async (userID, noteObj) => {
       title: newItem.title,
       text: newItem.text,
       date: newItem.date,
+      orderNum: newItem.orderNum,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
   newItem.id = newFromDB.id;
