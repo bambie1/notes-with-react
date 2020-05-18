@@ -103,6 +103,7 @@ class MainContent extends Component {
         this.setState((prevState) => ({
           notes: [newNote, ...prevState.notes],
           selectedNoteIndex: 0,
+          isNoteClicked: true,
         }));
       }
     );
