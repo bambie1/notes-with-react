@@ -1,5 +1,6 @@
 @import "../../base";
-.sign-up-form {
+.sign-up-form,
+sign-in-form {
   display: flex;
   flex-direction: column;
   border: 1px solid $contrast-e-light;
@@ -10,16 +11,19 @@
   border-color: $contrast-e-light;
   margin: 5vh auto 0vh auto;
 
-  .previous-link {
+  .previous-link,
+  .register-link {
     cursor: pointer;
     color: $primary-main;
-    font-size: 0.8rem;
-    margin-top: 2px;
+    font-size: 0.8rem; //both only on previous-link
+    margin-top: 2px; //previous link
   }
   .btns-group {
-    // display: block;
-    // text-align: center;
-    .sign-up-btn {
+    // display: flex; SIGN-IN styles
+    // justify-content: space-between;
+    // margin-top: 1vh; SIGN-IN styles
+    .sign-up-btn,
+    .sign-in-btn {
       margin: auto !important;
       background-color: $primary-main;
       width: 100%;
@@ -28,6 +32,25 @@
         background-color: $primary-light;
       }
     }
+  }
+}
+//sign-in only
+#customBtn {
+  display: inline-block;
+  background: white;
+  color: #444;
+  width: 100%;
+  border-radius: 5px;
+  border: thin solid #888;
+  box-shadow: 1px 1px 1px grey;
+  white-space: nowrap;
+  margin: auto;
+
+  .buttonText {
+    margin-left: 2vw;
+  }
+  .google-btn {
+    width: 100%;
   }
 }
 .sign-up-header {
@@ -57,9 +80,14 @@
     padding: 0 10px;
   }
 }
+.register-text {
+  font-size: 0.7rem;
+  text-align: center;
+}
 
 @media only screen and (min-width: 768px) {
-  .sign-up-form {
+  .sign-up-form,
+  sign-in-form {
     width: 22%;
     margin: 10vh auto 0vh auto;
     padding: 5vh;

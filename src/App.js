@@ -69,21 +69,9 @@ class App extends React.Component {
               )
             }
           />
-          <Route
-            path="/signin"
-            render={() =>
-              this.state.currentUser ? (
-                // <Redirect
-                //   to={{
-                //     pathname: "/notes",
-                //   }}
-                // />
-                <SignInPage user={this.state.currentUser} />
-              ) : (
-                <SignInPage />
-              )
-            }
-          />
+          <Route path="/signin">
+            <SignInPage user={this.state.currentUser} />
+          </Route>
         </Switch>
       </BrowserRouter>
     );

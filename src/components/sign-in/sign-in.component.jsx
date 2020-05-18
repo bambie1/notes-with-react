@@ -16,7 +16,6 @@ class SignIn extends React.Component {
       email: "",
       password: "",
       showPassword: false,
-      redirect: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -33,9 +32,7 @@ class SignIn extends React.Component {
     var sign = await signInWithGoogle();
     console.log("sign: ", sign);
     if (sign) {
-      this.setState({
-        redirect: true,
-      });
+      return <Redirect to="notes" />;
     }
   }
   async handleSubmit(e) {
@@ -46,11 +43,13 @@ class SignIn extends React.Component {
       return;
     }
     try {
-      await auth.signInWithEmailAndPassword(email, password);
-      this.setState({
-        email: "",
-        password: "",
-        redirect: true,
+      auth.signInWithEmailAndPassword(email, password).then(() => {
+        console.log("signin finished");
+        // return <Redirect to="/notes" />;
+        this.setState({
+          email: "",
+          password: "",
+        });
       });
     } catch (e) {
       if (e.code === "auth/wrong-password")
@@ -66,7 +65,7 @@ class SignIn extends React.Component {
     // console.log("redir state: ", this.state.redirect);
     // const { email, password } = this.state;
     // console.log("state: ", email, password);
-    return this.state.redirect ? (
+    return this.props.currentUser ? (
       <Redirect to="/notes" />
     ) : (
       <div className="sign-in-form">

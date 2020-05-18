@@ -13,24 +13,27 @@
     font-size: 10px;
   }
 }
-.dragged-note {
-  background: blue;
-}
+
 .note-container {
   justify-content: space-between !important;
   // margin-top: 31px;
-  padding-left: 0px !important;
-  padding-right: 5px;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
   background-color: $note-main;
   cursor: pointer;
 
   .drag-handle {
     padding-right: 0.5vw;
+    display: none;
   }
   &.unselected-note {
     &:hover {
       opacity: 0.8;
       background-color: $primary-light;
+
+      .drag-handle {
+        display: block;
+      }
     }
   }
   &.selected-note {
