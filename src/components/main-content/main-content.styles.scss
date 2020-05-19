@@ -3,7 +3,7 @@
 .content {
   border: 1px solid $primary-main;
   overflow: hidden;
-  min-height: 101vh;
+  min-height: 87vh;
   width: 89%;
   margin: auto;
   background-color: #dfded1; //add to base
@@ -76,20 +76,4 @@
     border-right: 1px solid $primary-main;
     // margin-top: 31px;
   }
-  // .section-head {
-  //   // list-style: none;
-  //   display: flex;
-  //   justify-content: space-evenly;
-
-  //   .notes-search-bar {
-  //     margin: 7px 0px 0px 3px;
-  //   }
-
-  //   .add-note-icon {
-  //     padding-top: 2.2vh;
-  //     width: 13%;
-  //     cursor: pointer;
-  //     color: #886c6c;
-  //   }
-  // }
 }

@@ -44,7 +44,9 @@
   border-color: $primary-light !important;
   // border-width: 2px;
 }
-
+.MuiInputBase-Root.MuiOutlinedInput-root.Mui-focused {
+  color: $primary-light !important;
+}
 .MuiFormLabel-root.Mui-focused {
   color: $primary-light !important;
 }

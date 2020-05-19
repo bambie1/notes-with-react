@@ -66,7 +66,10 @@ class Header extends Component {
                 >
                   <AccountCircle />
                   <span className="user-name">
-                    {this.props.currentUser.displayName}
+                    {this.props.currentUser.displayName?.length > 25
+                      ? this.props.currentUser.displayName.substring(0, 25) +
+                        " ..."
+                      : this.props.currentUser.displayName}
                   </span>
                 </IconButton>
 
